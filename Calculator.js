@@ -25,4 +25,5 @@ function Calculator(num1, num2, operator) {
     return operator(num1, num2)
 }
 
-console.log(Calculator(1,2,subtract));
+console.log(Calculator(2,15,multiply));
+
