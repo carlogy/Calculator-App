@@ -6,7 +6,6 @@ const buttons = document.querySelector(".action-buttons-grid").children;
 
 let inputScreen = document.querySelector(".input-screen");
 
-
 let calcInputs = "";
 
 function updateInput(buttonText) {
@@ -16,7 +15,6 @@ function updateInput(buttonText) {
     } else {
         calcInputs += buttonText;
     }
-
 
    inputScreen.textContent = calcInputs;
 }
@@ -30,17 +28,31 @@ for (const button of buttons) {
 
         updateInput(String(button.textContent));
 
-        if( button.textContent === "=") {
-            solveProblem();
+        switch (button.textContent) {
+            case "=":
+                solveProblem();
+                break;
+            case "C":
+                clearInput(button.textContent);
+            case "⌫":
+                backspaceInput(button.textContent, inputScreen.textContent);
+
+            default:
+                break;
         }
 
-        if (button.textContent === "C") {
-            clearInput(button.textContent);
-        }
 
-        if ( button.textContent === "⌫") {
-            backspaceInput(button.textContent);
-        }
+        // if( button.textContent === "=") {
+        //     solveProblem();
+        // }
+
+        // if (button.textContent === "C") {
+        //     clearInput(button.textContent);
+        // }
+
+        // if ( button.textContent === "⌫") {
+        //     backspaceInput(button.textContent, inputScreen.textContent);
+        // }
 
     })
 }
@@ -48,12 +60,21 @@ for (const button of buttons) {
 
 
 
+function backspaceInput(buttonText, currentScreenText) {
 
-function backspaceInput(buttonText) {
+
+    let newIndex = currentScreenText.length - 2;
 
     if (buttonText === "⌫") {
         try {
+
+
+            console.log(currentScreenText, newIndex);
             console.log("⌫ button has been pressed.")
+
+            calcInputs = calcInputs.substring(0,newIndex);
+            inputScreen.textContent = calcInputs;
+
         } catch (error) {
             console.log(error);
         }
@@ -84,8 +105,6 @@ function solveProblem() {
     } catch (error) {
         console.log(error);
     }
-
-
 
 }
 
