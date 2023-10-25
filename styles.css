@@ -62,7 +62,8 @@
 }
 
 .calc-input {
-    background-color: #F5F5F5;
+    /* background-color: #F5F5F5; */
+    background-color: rgba(245,245,245,0.25);
     /* opacity: .25; */
     border: none;
     font-size: 16px;

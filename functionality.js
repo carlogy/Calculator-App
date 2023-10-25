@@ -8,13 +8,44 @@ let inputScreen = document.querySelector(".input-screen");
 
 let calcInputs = "";
 
-function updateInput(buttonText) {
+function updateInput(buttonText, currentScreenText) {
 
-    if (calcInputs === "") {
-        calcInputs = buttonText
-    } else {
-        calcInputs += buttonText;
+
+    switch (buttonText) {
+        case "=":
+                solveProblem(buttonText, calcInputs);
+                break;
+            case "C":
+                clearInput(buttonText);
+                break;
+            case "⌫":
+                backspaceInput(buttonText, inputScreen.textContent);
+                break;
+            case "()":
+                paranthesis(buttonText, inputScreen.textContent);
+                break;
+            default:
+
+                calcInputs === "" ? calcInputs = buttonText :
+                    calcInputs += buttonText;
+                console.log(calcInputs);
+                break;
     }
+
+    // if (calcInputs === "") {
+
+
+    //     calcInputs = buttonText;
+    //     console.log(calcInputs, "From updateInputFunction if");
+
+
+    // } else {
+
+    //     calcInputs += buttonText;
+    //     console.log(calcInputs , "From updateInput function else");
+
+    // }
+
 
    inputScreen.textContent = calcInputs;
 }
@@ -26,38 +57,50 @@ for (const button of buttons) {
         console.log(button.textContent + " has been clicked!");
         console.log(event);
 
-        updateInput(String(button.textContent));
+        updateInput(String(button.textContent), inputScreen.textContent);
 
-        switch (button.textContent) {
-            case "=":
-                solveProblem();
-                break;
-            case "C":
-                clearInput(button.textContent);
-            case "⌫":
-                backspaceInput(button.textContent, inputScreen.textContent);
-
-            default:
-                break;
-        }
-
-
-        // if( button.textContent === "=") {
-        //     solveProblem();
-        // }
-
-        // if (button.textContent === "C") {
-        //     clearInput(button.textContent);
-        // }
-
-        // if ( button.textContent === "⌫") {
-        //     backspaceInput(button.textContent, inputScreen.textContent);
-        // }
-
-    })
+    });
 }
 
+function paranthesis (buttonText, currentScreenText) {
 
+    if (buttonText === "()") {
+        try {
+
+            let leftParenthsCount = 0;
+            let rightparenthsCount = 0;
+            for (const char of currentScreenText) {
+
+                char === "(" ? leftParenthsCount +=1 : leftParenthsCount + 0;
+                char  === ")" ? rightparenthsCount +=1 : rightparenthsCount + 0;
+            }
+
+            if (!currentScreenText.includes("(") && !currentScreenText.includes(")")) {
+                calcInputs += "("
+            } else if (currentScreenText.includes("(") && !currentScreenText.includes(")")) {
+
+                calcInputs += ")";
+            }
+            else if (leftParenthsCount === rightparenthsCount) {
+                calcInputs += "(";
+
+            } else {
+                calcInputs += ")";
+            }
+
+            console.log(calcInputs);
+            inputScreen.textContent = calcInputs;
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
+
+
+}
 
 
 function backspaceInput(buttonText, currentScreenText) {
@@ -87,6 +130,7 @@ function clearInput(buttonText) {
         try {
 
            calcInputs = "";
+           console.log(calcInputs);
            inputScreen.textContent = calcInputs;
 
         } catch (error) {
