@@ -33,7 +33,8 @@
     grid-area: header;
     padding-left: 1rem;
     margin-bottom: 0;
-    color: #3A1078
+    /* color: #3A1078 */
+    color: #2b7f5c;
 }
 
 .input-screen {
@@ -41,8 +42,8 @@
     grid-area: input-tracker;
     padding-right: 0.5rem;
     margin-bottom: 0;
-    color: #3A1078
-
+    /* color: #3A1078 */
+    color: #2b7f5c;
 }
 
 .action-buttons-grid {
@@ -58,16 +59,17 @@
 }
 
 #operation {
-    color: #2F58CD
+    color: #FF321a;
+
+
 }
 
 .calc-input {
-    /* background-color: #F5F5F5; */
-    background-color: rgba(245,245,245,0.25);
-    /* opacity: .25; */
+    background-color: rgba(245,245,245,0.22);
     border: none;
     font-size: 16px;
-    color: #3A1078;
+    /* color: #3A1078; */
+    color: #2b7f5c;
     /* background-color: #080808; */
 
 
@@ -75,17 +77,24 @@
 
 .calc-input:hover {
     font-weight: bold;
-    color: black;
-    opacity: .5;
+
+    color: #ff901b;
+
+}
+
+#operation:hover {
+    color: #ff901b;
+    font-weight: bold;
 }
 
 
 
 .bottom-right {
     border-radius: 0 0 1.8rem 0;
-    background-color: #3A1078;
+    /* background-color: #3A1078; */
+    background-color: #53644f;
     opacity: 1;
-    color: #3795BD
+    color: #12e195
 }
 
 .bottom-left {

@@ -13,7 +13,7 @@ function updateInput(buttonText, currentScreenText) {
 
     switch (buttonText) {
         case "=":
-                solveProblem(buttonText, calcInputs);
+                solveProblem(buttonText, currentScreenText);
                 break;
             case "C":
                 clearInput(buttonText);
@@ -24,6 +24,18 @@ function updateInput(buttonText, currentScreenText) {
             case "()":
                 paranthesis(buttonText, inputScreen.textContent);
                 break;
+            case "+":
+                operator(buttonText, inputScreen.textContent);
+                break;
+            case "-":
+                operator(buttonText, inputScreen.textContent);
+                break;
+            case "x":
+                operator(buttonText, inputScreen.textContent);
+                break;
+            case "÷":
+                operator(buttonText, inputScreen.textContent);
+                break;
             default:
 
                 calcInputs === "" ? calcInputs = buttonText :
@@ -31,20 +43,6 @@ function updateInput(buttonText, currentScreenText) {
                 console.log(calcInputs);
                 break;
     }
-
-    // if (calcInputs === "") {
-
-
-    //     calcInputs = buttonText;
-    //     console.log(calcInputs, "From updateInputFunction if");
-
-
-    // } else {
-
-    //     calcInputs += buttonText;
-    //     console.log(calcInputs , "From updateInput function else");
-
-    // }
 
 
    inputScreen.textContent = calcInputs;
@@ -61,6 +59,59 @@ for (const button of buttons) {
 
     });
 }
+
+function operator(buttonText , currentScreenText) {
+
+    switch (buttonText) {
+        case "+":
+            try {
+
+                calcInputs += " + ";
+
+            } catch (error) {
+                console.log(error);
+            }
+            break;
+        case "-":
+            try {
+
+                calcInputs += " - ";
+
+            } catch (error) {
+
+                console.log(error);
+            }
+            break;
+        case "x":
+            try {
+
+                calcInputs += " x ";
+
+            } catch (error) {
+
+                console.log(error);
+            }
+            break;
+        case "÷":
+        try {
+
+            calcInputs += " ÷ ";
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+        break;
+
+        default:
+            break;
+    }
+
+
+}
+
+
 
 function paranthesis (buttonText, currentScreenText) {
 
@@ -140,15 +191,22 @@ function clearInput(buttonText) {
     }
 }
 
-function solveProblem() {
+function solveProblem(buttonText, currentScreenText) {
 
-    try {
 
-        console.log("Solving Problem invoked");
+    if (buttonText === "=") {
+        try {
 
-    } catch (error) {
-        console.log(error);
+            console.log("Solving Problem invoked");
+            console.log("The current text is: ", currentScreenText, typeof(currentScreenText));
+
+        } catch (error) {
+            console.log(error);
+        }
     }
+
+
+
 
 }
 
