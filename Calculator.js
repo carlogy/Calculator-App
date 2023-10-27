@@ -17,8 +17,18 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
     return num1 / num2;
 }
-function Calculate(num1, operator, num2) {
-    return operator(num1, num2)
+function  Calculate(num1, operator, num2) {
+
+
+    try {
+
+        return operator(num1, num2)
+
+    } catch (error) {
+
+       console.log(error);
+    }
+
 }
 
 export {

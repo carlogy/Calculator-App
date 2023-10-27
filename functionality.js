@@ -8,6 +8,8 @@ let inputScreen = document.querySelector(".input-screen");
 
 let calcInputs = "";
 
+const operations = [];
+
 function updateInput(buttonText, currentScreenText) {
 
 
@@ -19,28 +21,28 @@ function updateInput(buttonText, currentScreenText) {
                 clearInput(buttonText);
                 break;
             case "⌫":
-                backspaceInput(buttonText, inputScreen.textContent);
+                backspaceInput(buttonText, currentScreenText);
                 break;
             case "()":
-                paranthesis(buttonText, inputScreen.textContent);
+                paranthesis(buttonText, currentScreenText);
                 break;
             case "+":
-                operator(buttonText, inputScreen.textContent);
+                operator(buttonText, currentScreenText);
                 break;
             case "-":
-                operator(buttonText, inputScreen.textContent);
+                operator(buttonText, currentScreenText);
                 break;
             case "x":
-                operator(buttonText, inputScreen.textContent);
+                operator(buttonText, currentScreenText);
                 break;
             case "÷":
-                operator(buttonText, inputScreen.textContent);
+                operator(buttonText, currentScreenText);
                 break;
             default:
 
                 calcInputs === "" ? calcInputs = buttonText :
                     calcInputs += buttonText;
-                console.log(calcInputs);
+                // console.log(calcInputs);
                 break;
     }
 
@@ -52,8 +54,6 @@ function updateInput(buttonText, currentScreenText) {
 for (const button of buttons) {
 
     button.addEventListener("click", (event) => {
-        console.log(button.textContent + " has been clicked!");
-        console.log(event);
 
         updateInput(String(button.textContent), inputScreen.textContent);
 
@@ -67,6 +67,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " + ";
+                operations.push(add);
 
             } catch (error) {
                 console.log(error);
@@ -76,6 +77,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " - ";
+                operations.push(subtract);
 
             } catch (error) {
 
@@ -86,6 +88,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " x ";
+                operations.push(multiply);
 
             } catch (error) {
 
@@ -96,6 +99,7 @@ function operator(buttonText , currentScreenText) {
         try {
 
             calcInputs += " ÷ ";
+            operations.push(divide);
 
         } catch (error) {
 
@@ -194,20 +198,42 @@ function clearInput(buttonText) {
 function solveProblem(buttonText, currentScreenText) {
 
 
+
+
     if (buttonText === "=") {
         try {
 
-            console.log("Solving Problem invoked");
-            console.log("The current text is: ", currentScreenText, typeof(currentScreenText));
+
+            const expression = currentScreenText.split(" ");
+            const numbers = [];
+
+
+            for (const element of expression) {
+
+                if (element !== '+' &&
+                    element !== '-' &&
+                    element !== 'x' &&
+                    element !== '÷' ) {
+
+                        numbers.push(Number(element));
+
+                    }
+
+            }
+
+
+
+
+            console.log(operations.length);
+            let answer =  Calculate(numbers[0], operations[0], numbers[1]);
+
+            calcInputs = String(answer);
+            operations.length = 0;
+            numbers.length = 0;
 
         } catch (error) {
             console.log(error);
         }
     }
 
-
-
-
 }
-
-console.log(Calculate(2, multiply, 15));
