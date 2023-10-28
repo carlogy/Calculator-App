@@ -58,11 +58,7 @@
 
 }
 
-#operation {
-    color: #FF321a;
 
-
-}
 
 .calc-input {
     background-color: rgba(245,245,245,0.22);
@@ -82,7 +78,11 @@
 
 }
 
-#operation:hover {
+.operation {
+    color: #FF321a;
+}
+
+.operation:hover {
     color: #ff901b;
     font-weight: bold;
 }

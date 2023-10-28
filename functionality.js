@@ -4,9 +4,12 @@ import { add, multiply, subtract, divide, Calculate } from './Calculator.js'
 
 const buttons = document.querySelector(".action-buttons-grid").children;
 
+const actionButtons = document.getElementsByClassName("operation");
+
 let inputScreen = document.querySelector(".input-screen");
 
 let calcInputs = "";
+
 
 const operations = [];
 
@@ -68,6 +71,7 @@ function operator(buttonText , currentScreenText) {
 
                 calcInputs += " + ";
                 operations.push(add);
+                // disableActionButtons();
 
             } catch (error) {
                 console.log(error);
@@ -161,16 +165,22 @@ function paranthesis (buttonText, currentScreenText) {
 function backspaceInput(buttonText, currentScreenText) {
 
 
-    let newIndex = currentScreenText.length - 2;
+
 
     if (buttonText === "⌫") {
         try {
 
 
+            console.log(currentScreenText);
+
+            let newIndex = currentScreenText.length - 1;
+            console.log(currentScreenText.length);
+
             console.log(currentScreenText, newIndex);
             console.log("⌫ button has been pressed.")
 
             calcInputs = calcInputs.substring(0,newIndex);
+            console.log(calcInputs);
             inputScreen.textContent = calcInputs;
 
         } catch (error) {
@@ -187,6 +197,7 @@ function clearInput(buttonText) {
            calcInputs = "";
            console.log(calcInputs);
            inputScreen.textContent = calcInputs;
+           enableActionButtons();
 
         } catch (error) {
             console.log(error);
@@ -204,36 +215,93 @@ function solveProblem(buttonText, currentScreenText) {
         try {
 
 
-            const expression = currentScreenText.split(" ");
-            const numbers = [];
+            let parsedInput = inputParser(currentScreenText);
 
+                console.log(parsedInput);
 
-            for (const element of expression) {
-
-                if (element !== '+' &&
-                    element !== '-' &&
-                    element !== 'x' &&
-                    element !== '÷' ) {
-
-                        numbers.push(Number(element));
-
-                    }
-
-            }
+                Calculate(parsedInput);
 
 
 
+                // if (operations.length === 1) {
 
-            console.log(operations.length);
-            let answer =  Calculate(numbers[0], operations[0], numbers[1]);
+                // let answer =  Calculate(numbers[0], operations[0], numbers[1]);
 
-            calcInputs = String(answer);
-            operations.length = 0;
-            numbers.length = 0;
+                // calcInputs = String(answer);
+                // operations.length = 0;
+                // numbers.length = 0;
+                // }
+
+
+
+
+
+
+
+
+
+
 
         } catch (error) {
             console.log(error);
         }
     }
 
+}
+
+function inputParser(currentScreenText) {
+
+    const expression = currentScreenText.split(" ");
+    const numbers = [];
+
+
+    const parsedExpression = []
+
+
+    for (const element of expression) {
+        if (element !== '+' &&
+                element !== '-' &&
+                element !== 'x' &&
+                element !== '÷' &&
+                element !== '(' &&
+                element !== ')')  {
+            parsedExpression.push(Number(element));
+
+        } else {
+            parsedExpression.push(element);
+        }
+
+    }
+
+    return parsedExpression;
+
+
+    // for (const element of expression) {
+
+    //     if (element !== '+' &&
+    //         element !== '-' &&
+    //         element !== 'x' &&
+    //         element !== '÷' ) {
+
+    //             numbers.push(Number(element));
+    //         }
+
+    // }
+
+
+}
+
+function disableActionButtons() {
+    for (const button of actionButtons) {
+
+        button.disabled = true;
+    }
+}
+
+function enableActionButtons() {
+    for (const button of actionButtons) {
+
+        button.disabled = false;
+
+    }
 }
