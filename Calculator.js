@@ -32,22 +32,11 @@ function divide(num1, num2) {
 // }
 
 
-function Calculate(expression) {
+function Calculate(num1, operation, num2) {
 
-    for (const element  of expression) {
-
-        // Please excuse my dear aunt sally
+    return operation(num1, num2);
 
 
-
-
-
-
-        console.log(element);
-
-
-
-    }
 }
 
 export {

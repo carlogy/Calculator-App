@@ -10,6 +10,8 @@ let inputScreen = document.querySelector(".input-screen");
 
 let calcInputs = "";
 
+// let calcValues = "";
+
 
 const operations = [];
 
@@ -45,6 +47,12 @@ function updateInput(buttonText, currentScreenText) {
 
                 calcInputs === "" ? calcInputs = buttonText :
                     calcInputs += buttonText;
+
+                // calcValues === "" ? calcValues = buttonValue :
+                // calcValues += buttonValue;
+
+
+
                 // console.log(calcInputs);
                 break;
     }
@@ -70,6 +78,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " + ";
+                // calcValues += buttonValue;
                 operations.push(add);
                 // disableActionButtons();
 
@@ -81,6 +90,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " - ";
+                // calcValues += buttonValue;
                 operations.push(subtract);
 
             } catch (error) {
@@ -92,6 +102,7 @@ function operator(buttonText , currentScreenText) {
             try {
 
                 calcInputs += " x ";
+                // calcValues += buttonValue
                 operations.push(multiply);
 
             } catch (error) {
@@ -103,6 +114,7 @@ function operator(buttonText , currentScreenText) {
         try {
 
             calcInputs += " ÷ ";
+            // calcValues += buttonValue;
             operations.push(divide);
 
         } catch (error) {
@@ -121,7 +133,7 @@ function operator(buttonText , currentScreenText) {
 
 
 
-function paranthesis (buttonText, currentScreenText) {
+function paranthesis (buttonText, currentScreenText, buttonValue) {
 
     if (buttonText === "()") {
         try {
@@ -138,13 +150,16 @@ function paranthesis (buttonText, currentScreenText) {
                 calcInputs += "("
             } else if (currentScreenText.includes("(") && !currentScreenText.includes(")")) {
 
-                calcInputs += ")";
+                calcInputs += ") ";
+                // calcValues += buttonValue;
             }
             else if (leftParenthsCount === rightparenthsCount) {
                 calcInputs += "(";
+                // calcValues += buttonValue;
 
             } else {
                 calcInputs += ")";
+                buttonValue += buttonValue;
             }
 
             console.log(calcInputs);
@@ -179,7 +194,7 @@ function backspaceInput(buttonText, currentScreenText) {
             console.log(currentScreenText, newIndex);
             console.log("⌫ button has been pressed.")
 
-            calcInputs = calcInputs.substring(0,newIndex);
+            calcInputs = calcInputs.substring(0, newIndex);
             console.log(calcInputs);
             inputScreen.textContent = calcInputs;
 
@@ -195,9 +210,10 @@ function clearInput(buttonText) {
         try {
 
            calcInputs = "";
+        //    calcValues = "";
            console.log(calcInputs);
            inputScreen.textContent = calcInputs;
-           enableActionButtons();
+
 
         } catch (error) {
             console.log(error);
@@ -211,36 +227,15 @@ function solveProblem(buttonText, currentScreenText) {
 
 
 
+
     if (buttonText === "=") {
         try {
 
+            console.log(currentScreenText);
 
-            let parsedInput = inputParser(currentScreenText);
+            calcInputs = String(inputParser(currentScreenText));
 
-                console.log(parsedInput);
-
-                Calculate(parsedInput);
-
-
-
-                // if (operations.length === 1) {
-
-                // let answer =  Calculate(numbers[0], operations[0], numbers[1]);
-
-                // calcInputs = String(answer);
-                // operations.length = 0;
-                // numbers.length = 0;
-                // }
-
-
-
-
-
-
-
-
-
-
+           inputScreen.textContent = calcInputs;
 
         } catch (error) {
             console.log(error);
@@ -251,57 +246,60 @@ function solveProblem(buttonText, currentScreenText) {
 
 function inputParser(currentScreenText) {
 
-    const expression = currentScreenText.split(" ");
-    const numbers = [];
+    let solution;
+
+    // Please excuse my dear aunt sally
+
+        if(operations.length === 1 && !currentScreenText.includes("(")) {
+
+            const expression = currentScreenText.split(" ");
+
+            const numbers = [];
+
+            for (const element of expression) {
+                if (element !== '+' &&
+                        element !== '-' &&
+                        element !== 'x' &&
+                        element !== '÷' &&
+                        element !== '(' &&
+                        element !== ')')  {
 
 
-    const parsedExpression = []
+                    numbers.push(parseInt(element));
+
+                }
+            }
+
+            solution =  Calculate(numbers[0], operations[0], numbers[1]);
+
+            operations.length = 0;
+            numbers.length = 0;
+            } else if (currentScreenText.includes("(") && currentScreenText.includes(")")) {
+
+                let indexOpenParenths = currentScreenText.indexOf("(");
+                let indexCloseParenths = currentScreenText.indexOf(")") + 1;
 
 
-    for (const element of expression) {
-        if (element !== '+' &&
-                element !== '-' &&
-                element !== 'x' &&
-                element !== '÷' &&
-                element !== '(' &&
-                element !== ')')  {
-            parsedExpression.push(Number(element));
+                const firstCalc = currentScreenText.substring(indexOpenParenths, indexCloseParenths).trim();
 
-        } else {
-            parsedExpression.push(element);
-        }
-
-    }
-
-    return parsedExpression;
+            console.log("based on .includes: ", firstCalc, firstSolved);
+            }
 
 
-    // for (const element of expression) {
-
-    //     if (element !== '+' &&
-    //         element !== '-' &&
-    //         element !== 'x' &&
-    //         element !== '÷' ) {
-
-    //             numbers.push(Number(element));
-    //         }
-
-    // }
-
-
+    return solution;
 }
 
-function disableActionButtons() {
-    for (const button of actionButtons) {
+// function disableActionButtons() {
+//     for (const button of actionButtons) {
 
-        button.disabled = true;
-    }
-}
+//         button.disabled = true;
+//     }
+// }
 
-function enableActionButtons() {
-    for (const button of actionButtons) {
+// function enableActionButtons() {
+//     for (const button of actionButtons) {
 
-        button.disabled = false;
+//         button.disabled = false;
 
-    }
-}
+//     }
+// }
