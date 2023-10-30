@@ -6,9 +6,36 @@ const buttons = document.querySelector(".action-buttons-grid").children;
 
 const actionButtons = document.getElementsByClassName("operation");
 
+const menuButton = document.querySelector(".menu");
+
 let inputScreen = document.querySelector(".input-screen");
 
 let calcInputs = "";
+
+
+for (const button of buttons) {
+
+    button.addEventListener("click", (event) => {
+
+        updateInput(String(button.textContent), inputScreen.textContent);
+
+    });
+}
+
+
+function menuClickhandler(event) {
+
+    menuButton.insertAdjacentHTML()
+
+    console.log(event);
+}
+
+menuButton.addEventListener("click", (event) => {
+
+    menuClickhandler(event);
+} )
+
+
 
 // let calcValues = "";
 
@@ -61,15 +88,6 @@ function updateInput(buttonText, currentScreenText) {
    inputScreen.textContent = calcInputs;
 }
 
-
-for (const button of buttons) {
-
-    button.addEventListener("click", (event) => {
-
-        updateInput(String(button.textContent), inputScreen.textContent);
-
-    });
-}
 
 function operator(buttonText , currentScreenText) {
 
@@ -247,14 +265,13 @@ function solveProblem(buttonText, currentScreenText) {
 function inputParser(currentScreenText) {
 
     let solution;
+    const numbers = [];
 
     // Please excuse my dear aunt sally
 
         if(operations.length === 1 && !currentScreenText.includes("(")) {
 
             const expression = currentScreenText.split(" ");
-
-            const numbers = [];
 
             for (const element of expression) {
                 if (element !== '+' &&
@@ -264,7 +281,6 @@ function inputParser(currentScreenText) {
                         element !== '(' &&
                         element !== ')')  {
 
-
                     numbers.push(parseInt(element));
 
                 }
@@ -272,19 +288,36 @@ function inputParser(currentScreenText) {
 
             solution =  Calculate(numbers[0], operations[0], numbers[1]);
 
-            operations.length = 0;
-            numbers.length = 0;
-            } else if (currentScreenText.includes("(") && currentScreenText.includes(")")) {
+            // operations.length = 0;
+            // numbers.length = 0;
+            }
+        else if (currentScreenText.includes("(") && currentScreenText.includes(")") && operations.length === 1 ) {
 
-                let indexOpenParenths = currentScreenText.indexOf("(");
-                let indexCloseParenths = currentScreenText.indexOf(")") + 1;
+            let indexOpenParenths = currentScreenText.indexOf("(");
+            let indexCloseParenths = currentScreenText.indexOf(")") + 1;
 
 
-                const firstCalc = currentScreenText.substring(indexOpenParenths, indexCloseParenths).trim();
+            const firstCalc = currentScreenText.substring(indexOpenParenths, indexCloseParenths).trim();
 
-            console.log("based on .includes: ", firstCalc, firstSolved);
+            for (const element of firstCalc) {
+                if (element !== '+' &&
+                        element !== '-' &&
+                        element !== 'x' &&
+                        element !== '÷' &&
+                        element !== '(' &&
+                        element !== ')' &&
+                        element !== ' ' )  {
+
+                    numbers.push(parseInt(element));
+                }
             }
 
+        solution = Calculate(numbers[0], operations[0], numbers[1]);
+
+    }
+
+    operations.length = 0;
+    numbers.length = 0;
 
     return solution;
 }

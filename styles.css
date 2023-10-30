@@ -29,12 +29,44 @@
     /* background-color: #080808 ; */
 }
 
+.nav-bar  {
+    display: flex;
+    flex-direction: row nowrap;
+
+}
+.title {
+    flex: 2;
+}
+
+.menu {
+
+    flex: 0;
+    margin: auto;
+    margin-right:  1.2rem;
+    color: #2b7f5c;
+}
+
+.menu-icon {
+    font-weight: bold;
+}
+
+.menu-icon:hover {
+    font-size: 18px;
+    color: #ff901b;
+}
+
+/* img {
+    width: 25px;
+    height: 25px;
+} */
+
 .header {
     grid-area: header;
     padding-left: 1rem;
     margin-bottom: 0;
     /* color: #3A1078 */
     color: #2b7f5c;
+    height: 50%;
 }
 
 .input-screen {
