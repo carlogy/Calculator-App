@@ -8,7 +8,10 @@ const actionButtons = document.getElementsByClassName("operation");
 
 const menuButton = document.querySelector(".menu");
 
+const menuItems = document.querySelector(".List-menu").children;
+
 let inputScreen = document.querySelector(".input-screen");
+let menuClicked = false;
 
 let calcInputs = "";
 
@@ -17,23 +20,46 @@ for (const button of buttons) {
 
     button.addEventListener("click", (event) => {
 
+
         updateInput(String(button.textContent), inputScreen.textContent);
 
     });
 }
 
 
-function menuClickhandler(event) {
+function menuEnableClickHandler(event) {
 
-    menuButton.insertAdjacentHTML()
 
-    console.log(event);
+    for (const item of menuItems) {
+
+        item.removeAttribute("hidden");
+    }
+
+    menuClicked = true;
+}
+
+function menuDisableClickHandler(event) {
+    for (const item of menuItems) {
+
+        item.setAttribute("hidden", true);
+    }
+
+    menuClicked = false;
 }
 
 menuButton.addEventListener("click", (event) => {
 
-    menuClickhandler(event);
-} )
+    switch (menuClicked) {
+        case false:
+            menuEnableClickHandler(event);
+            break;
+        case true:
+            menuDisableClickHandler(event);
+            break;
+        default:
+            break;
+    }
+})
 
 
 

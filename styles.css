@@ -48,11 +48,29 @@
 
 .menu-icon {
     font-weight: bold;
+
 }
 
 .menu-icon:hover {
     font-size: 18px;
     color: #ff901b;
+}
+
+.List-menu {
+    list-style: none;
+    z-index: 1;
+    border-radius: 1rem;
+    box-shadow: 20px 21px 18px -9px rgba(0,0,0,0.1),
+               -24px -21px 18px -9px rgba(0,0,0,0.1);
+
+
+}
+
+.List-item {
+    margin: 1rem;
+    padding-left: .1rem .2rem;
+
+
 }
 
 /* img {
