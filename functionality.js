@@ -8,10 +8,15 @@ const actionButtons = document.getElementsByClassName("operation");
 
 const menuButton = document.querySelector(".menu");
 
+const menuIcon = document.querySelector(".menu-icon");
+
 const menuItems = document.querySelector(".List-menu").children;
 
 let inputScreen = document.querySelector(".input-screen");
+
 let menuClicked = false;
+
+let darkMode = true;
 
 let calcInputs = "";
 
@@ -20,22 +25,64 @@ for (const button of buttons) {
 
     button.addEventListener("click", (event) => {
 
-
         updateInput(String(button.textContent), inputScreen.textContent);
 
     });
 }
 
 
+// function menuEnableClickHandler(event) {
+
+//     menuButton.menuItems.removeAttribute("hidden");
+//     menuClicked = true;
+// }
+
+// function menuDisableClickHandler(event) {
+
+//     menuButton.menuItems.setAttribute("hidden", true)
+//     menuClicked = false;
+// }
+
+
 function menuEnableClickHandler(event) {
 
+   menuIcon.setAttribute("hidden", true);
 
     for (const item of menuItems) {
 
+
         item.removeAttribute("hidden");
+
+
+        item.addEventListener("click", (event) => {
+
+            switch (item.textContent) {
+                case "☾":
+                    displayThemeClickHandler(event);
+                    // console.log("dark/light mode clicked")
+                    break;
+                case "Tip Calculator":
+                    console.log("Tip Calc clicked");
+                    break;
+                case "Discount Calculator":
+                    console.log("Discount Calc clicked");
+                    break;
+                default:
+                    break;
+            }
+        } )
     }
 
+
     menuClicked = true;
+}
+
+function displayThemeClickHandler(event) {
+
+    console.log("darkMode: ", darkMode);
+
+    menuDisableClickHandler(event);
+    menuIcon.removeAttribute("hidden");
 }
 
 function menuDisableClickHandler(event) {
@@ -47,7 +94,7 @@ function menuDisableClickHandler(event) {
     menuClicked = false;
 }
 
-menuButton.addEventListener("click", (event) => {
+menuButton.children[0].addEventListener("click", (event) => {
 
     switch (menuClicked) {
         case false:
@@ -124,7 +171,6 @@ function operator(buttonText , currentScreenText) {
                 calcInputs += " + ";
                 // calcValues += buttonValue;
                 operations.push(add);
-                // disableActionButtons();
 
             } catch (error) {
                 console.log(error);
@@ -171,11 +217,7 @@ function operator(buttonText , currentScreenText) {
         default:
             break;
     }
-
-
 }
-
-
 
 function paranthesis (buttonText, currentScreenText, buttonValue) {
 
@@ -213,22 +255,14 @@ function paranthesis (buttonText, currentScreenText, buttonValue) {
             console.log(error);
 
         }
-
     }
-
-
-
 }
 
 
 function backspaceInput(buttonText, currentScreenText) {
 
-
-
-
     if (buttonText === "⌫") {
         try {
-
 
             console.log(currentScreenText);
 
@@ -254,10 +288,8 @@ function clearInput(buttonText) {
         try {
 
            calcInputs = "";
-        //    calcValues = "";
            console.log(calcInputs);
            inputScreen.textContent = calcInputs;
-
 
         } catch (error) {
             console.log(error);
@@ -267,10 +299,6 @@ function clearInput(buttonText) {
 }
 
 function solveProblem(buttonText, currentScreenText) {
-
-
-
-
 
     if (buttonText === "=") {
         try {
@@ -285,7 +313,6 @@ function solveProblem(buttonText, currentScreenText) {
             console.log(error);
         }
     }
-
 }
 
 function inputParser(currentScreenText) {
@@ -313,15 +340,15 @@ function inputParser(currentScreenText) {
             }
 
             solution =  Calculate(numbers[0], operations[0], numbers[1]);
-
-            // operations.length = 0;
-            // numbers.length = 0;
             }
-        else if (currentScreenText.includes("(") && currentScreenText.includes(")") && operations.length === 1 ) {
+        else if (
+                    currentScreenText.includes("(") &&
+                    currentScreenText.includes(")") &&
+                    operations.length === 1
+                ) {
 
             let indexOpenParenths = currentScreenText.indexOf("(");
             let indexCloseParenths = currentScreenText.indexOf(")") + 1;
-
 
             const firstCalc = currentScreenText.substring(indexOpenParenths, indexCloseParenths).trim();
 
