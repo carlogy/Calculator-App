@@ -3,7 +3,8 @@
   }
 
   body {
-    margin-top: 20%;
+    margin-top: 25rem;
+    margin-bottom: 15rem;
     font-family: 'Roboto slab', serif;
     background-color: #fff;
     color: #3A1078;
@@ -63,7 +64,6 @@
     box-shadow: 20px 21px 18px -9px rgba(0,0,0,0.1),
                -24px -21px 18px -9px rgba(0,0,0,0.1);
 
-
 }
 
 .List-item {
@@ -78,10 +78,6 @@
     color: #ff901b;
 }
 
-/* img {
-    width: 25px;
-    height: 25px;
-} */
 
 .header {
     grid-area: header;
@@ -113,8 +109,6 @@
 
 }
 
-
-
 .calc-input {
     background-color: rgba(245,245,245,0.22);
     border: none;
@@ -141,8 +135,6 @@
     color: #ff901b;
     font-weight: bold;
 }
-
-
 
 .bottom-right {
     border-radius: 0 0 1.8rem 0;

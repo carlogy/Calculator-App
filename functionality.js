@@ -12,6 +12,8 @@ const menuIcon = document.querySelector(".menu-icon");
 
 const menuItems = document.querySelector(".List-menu").children;
 
+let calculatorType =  document.querySelector(".Calc-type");
+
 let inputScreen = document.querySelector(".input-screen");
 
 let menuClicked = false;
@@ -26,23 +28,10 @@ for (const button of buttons) {
     button.addEventListener("click", (event) => {
 
         updateInput(String(button.textContent), inputScreen.textContent);
+        menuDisableClickHandler(event);
 
     });
 }
-
-
-// function menuEnableClickHandler(event) {
-
-//     menuButton.menuItems.removeAttribute("hidden");
-//     menuClicked = true;
-// }
-
-// function menuDisableClickHandler(event) {
-
-//     menuButton.menuItems.setAttribute("hidden", true)
-//     menuClicked = false;
-// }
-
 
 function menuEnableClickHandler(event) {
 
@@ -50,9 +39,7 @@ function menuEnableClickHandler(event) {
 
     for (const item of menuItems) {
 
-
         item.removeAttribute("hidden");
-
 
         item.addEventListener("click", (event) => {
 
@@ -62,18 +49,16 @@ function menuEnableClickHandler(event) {
                     // console.log("dark/light mode clicked")
                     break;
                 case "Tip Calculator":
-                    console.log("Tip Calc clicked");
+                    tipCalculatorClickHandler(event);
                     break;
                 case "Discount Calculator":
-                    console.log("Discount Calc clicked");
+                    discountCalculatorClickHandler(event);
                     break;
                 default:
                     break;
             }
         } )
     }
-
-
     menuClicked = true;
 }
 
@@ -85,6 +70,26 @@ function displayThemeClickHandler(event) {
     menuIcon.removeAttribute("hidden");
 }
 
+function tipCalculatorClickHandler(event) {
+    console.log("Tip Calc button clicked");
+
+    menuDisableClickHandler(event);
+    menuIcon.removeAttribute("hidden");
+
+    calculatorType.textContent = "Tip Calculator";
+}
+
+
+function discountCalculatorClickHandler(event) {
+
+    console.log("Discount calc button clicked.");
+
+    menuDisableClickHandler(event);
+    menuIcon.removeAttribute("hidden");
+
+
+    calculatorType.textContent = "Discount Calculator";
+}
 function menuDisableClickHandler(event) {
     for (const item of menuItems) {
 
@@ -92,6 +97,7 @@ function menuDisableClickHandler(event) {
     }
 
     menuClicked = false;
+    menuIcon.removeAttribute("hidden");
 }
 
 menuButton.children[0].addEventListener("click", (event) => {
