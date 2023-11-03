@@ -18,7 +18,7 @@ let inputScreen = document.querySelector(".input-screen");
 
 let menuClicked = false;
 
-let darkMode = true;
+let darkMode = false;
 
 let calcInputs = "";
 
@@ -46,7 +46,6 @@ function menuEnableClickHandler(event) {
             switch (item.textContent) {
                 case "☾":
                     displayThemeClickHandler(event);
-                    // console.log("dark/light mode clicked")
                     break;
                 case "Tip Calculator":
                     tipCalculatorClickHandler(event);
@@ -62,12 +61,25 @@ function menuEnableClickHandler(event) {
     menuClicked = true;
 }
 
+
 function displayThemeClickHandler(event) {
 
     console.log("darkMode: ", darkMode);
 
     menuDisableClickHandler(event);
+
     menuIcon.removeAttribute("hidden");
+
+    if (darkMode) {
+
+        document.body.classList.remove("Dark-Theme");
+        darkMode = false;
+
+    } else {
+
+        document.body.classList.add("Dark-Theme");
+        darkMode = true;
+    }
 }
 
 function tipCalculatorClickHandler(event) {
@@ -86,7 +98,6 @@ function discountCalculatorClickHandler(event) {
 
     menuDisableClickHandler(event);
     menuIcon.removeAttribute("hidden");
-
 
     calculatorType.textContent = "Discount Calculator";
 }
