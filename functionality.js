@@ -37,29 +37,37 @@ function menuEnableClickHandler(event) {
 
    menuIcon.setAttribute("hidden", true);
 
-    for (const item of menuItems) {
+   console.log(event.target.textContent);
 
-        item.removeAttribute("hidden");
+        for (const item of menuItems) {
 
-        item.addEventListener("click", (event) => {
+            item.removeAttribute("hidden");
 
-            switch (item.textContent) {
-                case "☾":
-                    displayThemeClickHandler(event);
-                    break;
-                case "Tip Calculator":
-                    tipCalculatorClickHandler(event);
-                    break;
-                case "Discount Calculator":
-                    discountCalculatorClickHandler(event);
-                    break;
-                default:
-                    break;
-            }
-        } )
+            item.addEventListener("click", (event) => {
+
+                switch (event.target.textContent) {
+                    case "☾":
+                        displayThemeClickHandler(event);
+                        menuDisableClickHandler(event);
+                        break;
+                    case "Tip Calculator":
+                        tipCalculatorClickHandler(event);
+                        menuDisableClickHandler(event);
+
+                        break;
+                    case "Discount Calculator":
+                        discountCalculatorClickHandler(event);
+                        menuDisableClickHandler(event);
+                        break;
+                    default:
+                        break;
+                }});
+
     }
+
     menuClicked = true;
-}
+
+    }
 
 
 function displayThemeClickHandler(event) {
@@ -70,15 +78,17 @@ function displayThemeClickHandler(event) {
 
     menuIcon.removeAttribute("hidden");
 
-    if (darkMode) {
-
-        document.body.classList.remove("Dark-Theme");
-        darkMode = false;
-
-    } else {
+    if (!darkMode) {
 
         document.body.classList.add("Dark-Theme");
         darkMode = true;
+
+
+
+    } else if(darkMode) {
+
+        document.body.classList.remove("Dark-Theme");
+        darkMode = false;
     }
 }
 
@@ -102,13 +112,15 @@ function discountCalculatorClickHandler(event) {
     calculatorType.textContent = "Discount Calculator";
 }
 function menuDisableClickHandler(event) {
+
+    menuClicked = false;
+    menuIcon.removeAttribute("hidden");
+
+
     for (const item of menuItems) {
 
         item.setAttribute("hidden", true);
     }
-
-    menuClicked = false;
-    menuIcon.removeAttribute("hidden");
 }
 
 menuButton.children[0].addEventListener("click", (event) => {
