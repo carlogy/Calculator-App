@@ -23,6 +23,16 @@ let darkMode = false;
 let calcInputs = "";
 
 
+
+window.addEventListener("click", (event) => {
+
+console.log("Window triggered event" , event.target.textContent);
+console.log(event.target);
+
+
+});
+
+
 for (const button of buttons) {
 
     button.addEventListener("click", (event) => {
@@ -47,8 +57,9 @@ function menuEnableClickHandler(event) {
 
                 switch (event.target.textContent) {
                     case "☾":
-                        displayThemeClickHandler(event);
+
                         menuDisableClickHandler(event);
+                        displayThemeClickHandler(event);
                         break;
                     case "Tip Calculator":
                         tipCalculatorClickHandler(event);
@@ -82,6 +93,7 @@ function displayThemeClickHandler(event) {
 
         document.body.classList.add("Dark-Theme");
         darkMode = true;
+        console.log("darkMode after clicking button (if false): ", darkMode);
 
 
 
@@ -89,6 +101,8 @@ function displayThemeClickHandler(event) {
 
         document.body.classList.remove("Dark-Theme");
         darkMode = false;
+        console.log("darkMode after clicking button (if True): ", darkMode);
+
     }
 }
 
