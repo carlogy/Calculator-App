@@ -1,13 +1,6 @@
 
 import { add, multiply, subtract, divide, Calculate } from './Calculator.js'
 
-
-const buttons = document.querySelector(".action-buttons-grid").children;
-
-const actionButtons = document.getElementsByClassName("operation");
-
-const menuButton = document.querySelector(".menu");
-
 const menuIcon = document.querySelector(".menu-icon");
 
 const menuItems = document.querySelector(".List-menu").children;
@@ -22,26 +15,60 @@ let darkMode = false;
 
 let calcInputs = "";
 
-
-
 window.addEventListener("click", (event) => {
 
-console.log("Window triggered event" , event.target.textContent);
-console.log(event.target);
+if(event.target.parentElement.classList.contains("action-buttons-grid")) {
 
+    updateInput(String(event.target.textContent), inputScreen.textContent);
+    menuDisableClickHandler(event);
+}  else if (event.target.parentElement.classList.contains("List-menu")) {
+
+    switch (event.target.textContent) {
+        case "☾":
+            menuDisableClickHandler(event);
+            displayThemeClickHandler(event);
+            break;
+        case "☀︎":
+            menuDisableClickHandler(event);
+            displayThemeClickHandler(event);
+        case "Tip Calculator":
+            tipCalculatorClickHandler(event);
+            menuDisableClickHandler(event);
+            break;
+        case "Discount Calculator":
+            discountCalculatorClickHandler(event);
+            menuDisableClickHandler(event);
+            break;
+        case "Calculator":
+            calculatorClickHandler(event);
+            menuDisableClickHandler(event);
+        default:
+            break;
+    }}
+
+ if (event.target.parentElement.classList.contains("menu")) {
+    switch (menuClicked) {
+        case false:
+            menuEnableClickHandler(event);
+            break;
+        case true:
+            menuDisableClickHandler(event);
+            break;
+        default:
+            break;
+        }
+    }
 
 });
 
+// for (const button of buttons) {
 
-for (const button of buttons) {
+//     button.addEventListener("click", (event) => {
 
-    button.addEventListener("click", (event) => {
-
-        updateInput(String(button.textContent), inputScreen.textContent);
-        menuDisableClickHandler(event);
-
-    });
-}
+//         updateInput(String(button.textContent), inputScreen.textContent);
+//         menuDisableClickHandler(event);
+//     });
+// }
 
 function menuEnableClickHandler(event) {
 
@@ -53,26 +80,26 @@ function menuEnableClickHandler(event) {
 
             item.removeAttribute("hidden");
 
-            item.addEventListener("click", (event) => {
+            // item.addEventListener("click", (event) => {
 
-                switch (event.target.textContent) {
-                    case "☾":
+            //     switch (event.target.textContent) {
+            //         case "☾":
 
-                        menuDisableClickHandler(event);
-                        displayThemeClickHandler(event);
-                        break;
-                    case "Tip Calculator":
-                        tipCalculatorClickHandler(event);
-                        menuDisableClickHandler(event);
+            //             menuDisableClickHandler(event);
+            //             displayThemeClickHandler(event);
+            //             break;
+            //         case "Tip Calculator":
+            //             tipCalculatorClickHandler(event);
+            //             menuDisableClickHandler(event);
 
-                        break;
-                    case "Discount Calculator":
-                        discountCalculatorClickHandler(event);
-                        menuDisableClickHandler(event);
-                        break;
-                    default:
-                        break;
-                }});
+            //             break;
+            //         case "Discount Calculator":
+            //             discountCalculatorClickHandler(event);
+            //             menuDisableClickHandler(event);
+            //             break;
+            //         default:
+            //             break;
+            //     }});
 
     }
 
@@ -80,10 +107,7 @@ function menuEnableClickHandler(event) {
 
     }
 
-
 function displayThemeClickHandler(event) {
-
-    console.log("darkMode: ", darkMode);
 
     menuDisableClickHandler(event);
 
@@ -93,38 +117,62 @@ function displayThemeClickHandler(event) {
 
         document.body.classList.add("Dark-Theme");
         darkMode = true;
+        menuItems[0].textContent = "☀︎";
         console.log("darkMode after clicking button (if false): ", darkMode);
-
-
 
     } else if(darkMode) {
 
         document.body.classList.remove("Dark-Theme");
         darkMode = false;
+        menuItems[0].textContent = "☾";
         console.log("darkMode after clicking button (if True): ", darkMode);
-
     }
 }
 
 function tipCalculatorClickHandler(event) {
+
     console.log("Tip Calc button clicked");
 
     menuDisableClickHandler(event);
+
     menuIcon.removeAttribute("hidden");
 
     calculatorType.textContent = "Tip Calculator";
-}
 
+    event.target.textContent = "Calculator";
+
+}
 
 function discountCalculatorClickHandler(event) {
 
     console.log("Discount calc button clicked.");
 
     menuDisableClickHandler(event);
+
     menuIcon.removeAttribute("hidden");
 
-    calculatorType.textContent = "Discount Calculator";
+    // event.target.textContent = "Calculator";
+
+    // calculatorType.textContent = "Discount Calculator";
 }
+
+function calculatorClickHandler(event) {
+
+    menuDisableClickHandler(event);
+    menuIcon.removeAttribute("hidden");
+
+    calculatorType.textContent = "Calculator";
+
+    if (event.target === menuItems[1]){
+        console.log("used to be Tip calculator");
+        calculatorType.textContent = "Tip Calculator";
+    } else if (event.target === menuItems[2]) {
+
+        calculatorType.textContent = "Discount Calculator"
+        console.log("Used to be discountCalculator");
+    }
+}
+
 function menuDisableClickHandler(event) {
 
     menuClicked = false;
@@ -137,24 +185,21 @@ function menuDisableClickHandler(event) {
     }
 }
 
-menuButton.children[0].addEventListener("click", (event) => {
+// menuButton.children[0].addEventListener("click", (event) => {
 
-    switch (menuClicked) {
-        case false:
-            menuEnableClickHandler(event);
-            break;
-        case true:
-            menuDisableClickHandler(event);
-            break;
-        default:
-            break;
-    }
-})
-
-
+//     switch (menuClicked) {
+//         case false:
+//             menuEnableClickHandler(event);
+//             break;
+//         case true:
+//             menuDisableClickHandler(event);
+//             break;
+//         default:
+//             break;
+//     }
+// })
 
 // let calcValues = "";
-
 
 const operations = [];
 
@@ -194,12 +239,9 @@ function updateInput(buttonText, currentScreenText) {
                 // calcValues === "" ? calcValues = buttonValue :
                 // calcValues += buttonValue;
 
-
-
                 // console.log(calcInputs);
                 break;
     }
-
 
    inputScreen.textContent = calcInputs;
 }
@@ -300,7 +342,6 @@ function paranthesis (buttonText, currentScreenText, buttonValue) {
         }
     }
 }
-
 
 function backspaceInput(buttonText, currentScreenText) {
 
