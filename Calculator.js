@@ -35,8 +35,6 @@ function divide(num1, num2) {
 function Calculate(num1, operation, num2) {
 
     return operation(num1, num2);
-
-
 }
 
 export {

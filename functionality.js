@@ -13,6 +13,10 @@ let menuClicked = false;
 
 let darkMode = false;
 
+// const CalculatorOption = document.createElement("li");
+//         CalculatorOption.textContent = "Calculator";
+//         CalculatorOption.classList.add("List-item");
+
 let calcInputs = "";
 
 window.addEventListener("click", (event) => {
@@ -31,6 +35,7 @@ if(event.target.parentElement.classList.contains("action-buttons-grid")) {
         case "☀︎":
             menuDisableClickHandler(event);
             displayThemeClickHandler(event);
+            break;
         case "Tip Calculator":
             tipCalculatorClickHandler(event);
             menuDisableClickHandler(event);
@@ -116,16 +121,28 @@ function displayThemeClickHandler(event) {
     if (!darkMode) {
 
         document.body.classList.add("Dark-Theme");
+        document.body.querySelector(".calculator").classList.add("calculator-dark");
+
+        for (const input of document.querySelector(".action-buttons-grid").children) {
+            input.classList.add("dark-calc-input");
+        }
+
         darkMode = true;
-        menuItems[0].textContent = "☀︎";
-        console.log("darkMode after clicking button (if false): ", darkMode);
+
+        event.target.textContent = "☀︎";
 
     } else if(darkMode) {
 
         document.body.classList.remove("Dark-Theme");
+        document.body.querySelector(".calculator").classList.remove("calculator-dark");
+
+        for (const input of document.querySelector(".action-buttons-grid").children) {
+            input.classList.remove("dark-calc-input");
+        }
+
         darkMode = false;
-        menuItems[0].textContent = "☾";
-        console.log("darkMode after clicking button (if True): ", darkMode);
+        event.target.textContent = "☾";
+
     }
 }
 
@@ -137,9 +154,14 @@ function tipCalculatorClickHandler(event) {
 
     menuIcon.removeAttribute("hidden");
 
-    calculatorType.textContent = "Tip Calculator";
+    // if (menuItems.length === 3) {
 
-    event.target.textContent = "Calculator";
+
+    //     document.querySelector(".List-menu").appendChild(CalculatorOption);
+
+    // }
+
+    calculatorType.textContent = "Tip Calculator";
 
 }
 
@@ -151,9 +173,15 @@ function discountCalculatorClickHandler(event) {
 
     menuIcon.removeAttribute("hidden");
 
-    // event.target.textContent = "Calculator";
+    // if (menuItems.length === 3) {
 
-    // calculatorType.textContent = "Discount Calculator";
+
+    //     document.querySelector(".List-menu").appendChild(CalculatorOption);
+
+    // }
+
+    calculatorType.textContent = "Discount Calculator";
+
 }
 
 function calculatorClickHandler(event) {
@@ -161,16 +189,11 @@ function calculatorClickHandler(event) {
     menuDisableClickHandler(event);
     menuIcon.removeAttribute("hidden");
 
-    calculatorType.textContent = "Calculator";
-
-    if (event.target === menuItems[1]){
-        console.log("used to be Tip calculator");
-        calculatorType.textContent = "Tip Calculator";
-    } else if (event.target === menuItems[2]) {
-
-        calculatorType.textContent = "Discount Calculator"
-        console.log("Used to be discountCalculator");
+    if (menuItems.length !== 3) {
+        event.target.parentElement.removeChild(CalculatorOption);
     }
+
+    calculatorType.textContent = "Calculator";
 }
 
 function menuDisableClickHandler(event) {
