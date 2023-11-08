@@ -150,8 +150,8 @@
 }
 
 @media all and (max-width: 400px) {
-    body {margin: .5rem 0 .2rem 0;}
-    .calculator {height: 40rem;
-                 width: 20rem;
+    body {margin: .2rem 0 .2rem 0;}
+    .calculator {height: 41.5rem;
+                 width: 22rem;
     }
 }
