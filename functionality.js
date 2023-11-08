@@ -5,6 +5,8 @@ const menuIcon = document.querySelector(".menu-icon");
 
 const menuItems = document.querySelector(".List-menu").children;
 
+const calcItemInputs = document.querySelector(".action-buttons-grid").children;
+
 let calculatorType =  document.querySelector(".Calc-type");
 
 let inputScreen = document.querySelector(".input-screen");
@@ -13,9 +15,9 @@ let menuClicked = false;
 
 let darkMode = false;
 
-// const CalculatorOption = document.createElement("li");
-//         CalculatorOption.textContent = "Calculator";
-//         CalculatorOption.classList.add("List-item");
+const CalculatorOption = document.createElement("li");
+        CalculatorOption.textContent = "Calculator";
+        CalculatorOption.classList.add("List-item");
 
 let calcInputs = "";
 
@@ -25,6 +27,7 @@ if(event.target.parentElement.classList.contains("action-buttons-grid")) {
 
     updateInput(String(event.target.textContent), inputScreen.textContent);
     menuDisableClickHandler(event);
+
 }  else if (event.target.parentElement.classList.contains("List-menu")) {
 
     switch (event.target.textContent) {
@@ -154,12 +157,32 @@ function tipCalculatorClickHandler(event) {
 
     menuIcon.removeAttribute("hidden");
 
-    // if (menuItems.length === 3) {
+    if (menuItems.length === 3) {
 
+        document.querySelector(".List-menu").appendChild(CalculatorOption);
+    }
 
-    //     document.querySelector(".List-menu").appendChild(CalculatorOption);
+    // const discountForm =  document.createElement("div");
+    // discountForm.classList.add("tip-form-grid");
+    // const totalLabel = document.createElement("label");
+    // totalLabel.textContent = "Total: "
+    // totalLabel.setAttribute("for", "total");
+    // const totalInput = document.createElement("input");
+    // totalInput.setAttribute("name", "total");
 
-    // }
+    // console.log(calcItemInputs);
+
+    // `<div class="discount-buttons-grid">
+    // <label class="" for=">Total:</label>
+    // <input class="" name="total" type="></input>
+    // <label class="" for="splitNumber"># to split with:</label>
+    // <input class="" name="splitNumber" type="" ></input>
+    // </div>`;
+
+    // document.querySelector(".action-buttons-grid").replaceChildren(discountForm);
+
+    // discountForm.appendChild(totalLabel);
+    // discountForm.appendChild(totalInput);
 
     calculatorType.textContent = "Tip Calculator";
 
@@ -173,12 +196,12 @@ function discountCalculatorClickHandler(event) {
 
     menuIcon.removeAttribute("hidden");
 
-    // if (menuItems.length === 3) {
+    if (menuItems.length === 3) {
+
+        document.querySelector(".List-menu").appendChild(CalculatorOption);
+    }
 
 
-    //     document.querySelector(".List-menu").appendChild(CalculatorOption);
-
-    // }
 
     calculatorType.textContent = "Discount Calculator";
 
@@ -192,6 +215,8 @@ function calculatorClickHandler(event) {
     if (menuItems.length !== 3) {
         event.target.parentElement.removeChild(CalculatorOption);
     }
+
+    // document.querySelector(".tip-form-grid").replaceWith(calcItemInputs);
 
     calculatorType.textContent = "Calculator";
 }
