@@ -5,7 +5,7 @@ const menuIcon = document.querySelector(".menu-icon");
 
 const menuItems = document.querySelector(".List-menu").children;
 
-const calcItemInputs = document.querySelector(".action-buttons-grid").children;
+const calcComponents = [];
 
 let calculatorType =  document.querySelector(".Calc-type");
 
@@ -23,7 +23,7 @@ let calcInputs = "";
 
 window.addEventListener("click", (event) => {
 
-if(event.target.parentElement.classList.contains("action-buttons-grid")) {
+if(event.target.parentElement.classList.contains("action-buttons-grid") && !event.target.parentElement.classList.contains("action-buttons-grid-form")) {
 
     updateInput(String(event.target.textContent), inputScreen.textContent);
     menuDisableClickHandler(event);
@@ -53,6 +53,10 @@ if(event.target.parentElement.classList.contains("action-buttons-grid")) {
         default:
             break;
     }}
+    else if(event.target.classList.contains("tip-calc-button")) {
+
+        console.log("Calculate Tip clicked!");
+    }
 
  if (event.target.parentElement.classList.contains("menu")) {
     switch (menuClicked) {
@@ -68,6 +72,18 @@ if(event.target.parentElement.classList.contains("action-buttons-grid")) {
     }
 
 });
+
+
+function calcItemInputs(element) {
+
+    if (calcComponents.length === 0) {
+
+            for (const item of element) {
+            calcComponents.push(item);
+    }
+}
+    console.log(calcComponents);
+}
 
 // for (const button of buttons) {
 
@@ -128,6 +144,18 @@ function displayThemeClickHandler(event) {
 
         for (const input of document.querySelector(".action-buttons-grid").children) {
             input.classList.add("dark-calc-input");
+
+        }
+
+        switch (calculatorType.textContent) {
+            case "Tip Calculator":
+                for (const input of document.querySelector(".tip-form-grid").children) {
+                    input.classList.add("dark-calc-input");
+                }
+                break;
+
+            default:
+                break;
         }
 
         darkMode = true;
@@ -162,27 +190,67 @@ function tipCalculatorClickHandler(event) {
         document.querySelector(".List-menu").appendChild(CalculatorOption);
     }
 
-    // const discountForm =  document.createElement("div");
-    // discountForm.classList.add("tip-form-grid");
-    // const totalLabel = document.createElement("label");
-    // totalLabel.textContent = "Total: "
-    // totalLabel.setAttribute("for", "total");
-    // const totalInput = document.createElement("input");
-    // totalInput.setAttribute("name", "total");
+    calcItemInputs(document.querySelector(".action-buttons-grid").children);
 
-    // console.log(calcItemInputs);
+    document.querySelector(".action-buttons-grid").classList.add("action-buttons-grid-form");
 
-    // `<div class="discount-buttons-grid">
-    // <label class="" for=">Total:</label>
-    // <input class="" name="total" type="></input>
-    // <label class="" for="splitNumber"># to split with:</label>
-    // <input class="" name="splitNumber" type="" ></input>
-    // </div>`;
 
-    // document.querySelector(".action-buttons-grid").replaceChildren(discountForm);
+    const tipForm =  document.createElement("div");
+        tipForm.classList.add("tip-form-grid");
 
-    // discountForm.appendChild(totalLabel);
-    // discountForm.appendChild(totalInput);
+    const totalLabel = document.createElement("label");
+        totalLabel.textContent = "Total: "
+        totalLabel.setAttribute("for", "total");
+        totalLabel.classList.add("tip-labels");
+
+    const totalInput = document.createElement("input");
+        totalInput.setAttribute("id", "total");
+        totalInput.setAttribute("type", "number");
+        totalInput.classList.add("tip-inputs");
+
+    const splitByLabel = document.createElement("label");
+        splitByLabel.setAttribute("for", "splitByInput");
+        splitByLabel.textContent = "Split total by: "
+        splitByLabel.classList.add("tip-labels");
+
+    const splitNumber = document.createElement("input");
+        splitNumber.setAttribute("id", "splitByInput");
+        splitNumber.setAttribute("type", "number");
+        splitNumber.classList.add("tip-inputs")
+
+    const tipLabel = document.createElement("label");
+        tipLabel.textContent = "Desired Tip percentage: "
+        tipLabel.setAttribute("for", "tipInput");
+        tipLabel.classList.add("tip-labels");
+
+    const tipInput = document.createElement("input");
+        tipInput.setAttribute("id", "tipInput");
+        tipInput.setAttribute("type", "number");
+        tipInput.classList.add("tip-inputs");
+
+    const tipSubmitButton = document.createElement("button");
+        tipSubmitButton.classList.add("tip-calc-button");
+        tipSubmitButton.textContent = "Calculate Tip";
+
+
+
+
+
+    console.log(calcItemInputs);
+
+
+
+    document.querySelector(".action-buttons-grid").replaceChildren(tipForm);
+
+    tipForm.appendChild(totalLabel);
+    tipForm.appendChild(totalInput);
+    tipForm.appendChild(splitByLabel);
+    tipForm.appendChild(splitNumber);
+    tipForm.appendChild(tipLabel);
+    tipForm.appendChild(tipInput);
+    tipForm.appendChild(tipSubmitButton);
+
+    inputScreen.textContent = "";
 
     calculatorType.textContent = "Tip Calculator";
 
@@ -202,7 +270,6 @@ function discountCalculatorClickHandler(event) {
     }
 
 
-
     calculatorType.textContent = "Discount Calculator";
 
 }
@@ -216,7 +283,15 @@ function calculatorClickHandler(event) {
         event.target.parentElement.removeChild(CalculatorOption);
     }
 
-    // document.querySelector(".tip-form-grid").replaceWith(calcItemInputs);
+    document.querySelector(".action-buttons-grid").removeChild(document.querySelector(".tip-form-grid"));
+
+    for (const item of calcComponents) {
+        document.querySelector(".action-buttons-grid").appendChild(item);
+    }
+
+    document.querySelector(".action-buttons-grid").classList.remove("action-buttons-grid-form");
+
+    inputScreen.textContent = calcInputs;
 
     calculatorType.textContent = "Calculator";
 }

@@ -42,5 +42,10 @@ export {
     subtract,
     multiply,
     divide,
-    Calculate
+    Calculate,
+
 };
+
+function tipFormCalc(form) {
+    console.log(form);
+}
