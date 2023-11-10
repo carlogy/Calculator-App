@@ -96,9 +96,10 @@
 .input-screen {
     text-align: end;
     grid-area: input-tracker;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
     margin-bottom: 0;
     color: #2b7f5c;
+
 }
 
 .action-buttons-grid {
@@ -171,8 +172,6 @@
 
 .tip-inputs:hover {
     border: solid 1px #FF321a
-
-
 }
 
 .dark-tip-inputs {

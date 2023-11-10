@@ -43,9 +43,19 @@ export {
     multiply,
     divide,
     Calculate,
+    tipFormCalc
 
 };
 
-function tipFormCalc(form) {
-    console.log(form);
+function tipFormCalc(total, splitByNumber, tipPercetage) {
+
+    let convertedPercentage = add(1, divide(tipPercetage, 100));
+
+    let subTotal =  multiply(total, convertedPercentage);
+
+
+
+    return splitByNumber !== 0 ? divide(subTotal, splitByNumber) : subTotal;
+
+
 }

@@ -1,5 +1,5 @@
 
-import { add, multiply, subtract, divide, Calculate } from './Calculator.js'
+import { add, multiply, subtract, divide, Calculate, tipFormCalc } from './Calculator.js'
 
 const menuIcon = document.querySelector(".menu-icon");
 
@@ -52,10 +52,12 @@ if(event.target.parentElement.classList.contains("action-buttons-grid") && !even
             menuDisableClickHandler(event);
         default:
             break;
-    }}
-    else if(event.target.classList.contains("tip-calc-button")) {
+    }};
 
-        console.log("Calculate Tip clicked!");
+
+    if (event.target.textContent === "Calculate Tip") {
+
+        submitTipForm(event);
     }
 
  if (event.target.parentElement.classList.contains("menu")) {
@@ -71,7 +73,33 @@ if(event.target.parentElement.classList.contains("action-buttons-grid") && !even
         }
     }
 
-});
+}
+// , true
+);
+
+
+
+// window.addEventListener("submit", (event) => {
+
+//     event.preventDefault();
+
+//     if (event.target.buttonText === "Calculate Tip") {
+
+//         submitTipForm(event);
+//     }
+
+// });
+
+function submitTipForm(event) {
+
+
+
+    let formChildren = event.target.parentElement.children;
+
+   let tipTotal = tipFormCalc(formChildren[1].value , formChildren[3].value , formChildren[5].value);
+
+   inputScreen.textContent = `$${tipTotal}`
+}
 
 
 function calcItemInputs(element) {
@@ -149,8 +177,13 @@ function displayThemeClickHandler(event) {
 
         switch (calculatorType.textContent) {
             case "Tip Calculator":
-                for (const input of document.querySelector(".tip-form-grid").children) {
+                for (const input of document.querySelector("#tipForm").children) {
                     input.classList.add("dark-calc-input");
+                }
+            case "Calculator":
+                for (const input of document.querySelector(".action-buttons-grid").children) {
+                    input.classList.add("dark-calc-input");
+
                 }
                 break;
 
@@ -179,7 +212,8 @@ function displayThemeClickHandler(event) {
 
 function tipCalculatorClickHandler(event) {
 
-    console.log("Tip Calc button clicked");
+
+    console.log("Tip Calculator button clicked");
 
     menuDisableClickHandler(event);
 
@@ -195,8 +229,14 @@ function tipCalculatorClickHandler(event) {
     document.querySelector(".action-buttons-grid").classList.add("action-buttons-grid-form");
 
 
-    const tipForm =  document.createElement("div");
-        tipForm.classList.add("tip-form-grid");
+    const tipFormContainer =  document.createElement("div");
+        tipFormContainer.classList.add("tip-form-grid");
+
+    const tipForm = document.createElement("div");
+        tipForm.setAttribute("id", "tipForm");
+        tipForm.setAttribute("method", "get");
+        // tipForm.setAttribute("action", "submitTipForm()");
+        // tipForm.setAttribute("onsubmit", "return submitTipForm()");
 
     const totalLabel = document.createElement("label");
         totalLabel.textContent = "Total: "
@@ -205,6 +245,7 @@ function tipCalculatorClickHandler(event) {
 
     const totalInput = document.createElement("input");
         totalInput.setAttribute("id", "total");
+        totalInput.setAttribute("name", "total")
         totalInput.setAttribute("type", "number");
         totalInput.classList.add("tip-inputs");
 
@@ -214,33 +255,34 @@ function tipCalculatorClickHandler(event) {
         splitByLabel.classList.add("tip-labels");
 
     const splitNumber = document.createElement("input");
+        splitNumber.setAttribute("name", "splitByInput");
         splitNumber.setAttribute("id", "splitByInput");
         splitNumber.setAttribute("type", "number");
         splitNumber.classList.add("tip-inputs")
 
     const tipLabel = document.createElement("label");
-        tipLabel.textContent = "Desired Tip percentage: "
-        tipLabel.setAttribute("for", "tipInput");
+        tipLabel.textContent = "Desired Tip percentage: ";
+        tipLabel.setAttribute("for","tip");
         tipLabel.classList.add("tip-labels");
 
     const tipInput = document.createElement("input");
-        tipInput.setAttribute("id", "tipInput");
+        tipInput.setAttribute("name", "tip");
+        tipInput.setAttribute("id", "tip");
         tipInput.setAttribute("type", "number");
         tipInput.classList.add("tip-inputs");
 
     const tipSubmitButton = document.createElement("button");
         tipSubmitButton.classList.add("tip-calc-button");
         tipSubmitButton.textContent = "Calculate Tip";
-
-
-
+        tipSubmitButton.setAttribute("type", "submit");
+        // tipSubmitButton.setAttribute("value", "Submit");
 
 
     console.log(calcItemInputs);
 
+    document.querySelector(".action-buttons-grid").replaceChildren(tipFormContainer);
 
-
-    document.querySelector(".action-buttons-grid").replaceChildren(tipForm);
+    tipFormContainer.appendChild(tipForm);
 
     tipForm.appendChild(totalLabel);
     tipForm.appendChild(totalInput);
@@ -255,6 +297,10 @@ function tipCalculatorClickHandler(event) {
     calculatorType.textContent = "Tip Calculator";
 
 }
+
+
+
+
 
 function discountCalculatorClickHandler(event) {
 
