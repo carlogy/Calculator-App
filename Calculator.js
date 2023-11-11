@@ -17,6 +17,30 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
     return num1 / num2;
 }
+
+function tipFormCalc(total, splitByNumber, tipPercetage) {
+
+    let convertedPercentage = add(1, divide(tipPercetage, 100));
+
+    let subTotal =  multiply(total, convertedPercentage);
+
+
+
+    return splitByNumber !== 0 ? divide(subTotal, splitByNumber) : subTotal;
+
+
+}
+
+
+function discountFormCalc(itemPrice, discountPercentage, taxPercentage) {
+
+
+    let discountSubTotal = multiply(itemPrice, (add(1,(divide(discountPercentage,100)))));
+
+    return multiply(discountSubTotal,(add(1,(divide(taxPercentage, 100)))));
+
+}
+
 // function  Calculate(num1, operator, num2) {
 
 
@@ -42,20 +66,8 @@ export {
     subtract,
     multiply,
     divide,
-    Calculate,
-    tipFormCalc
-
+    tipFormCalc,
+    discountFormCalc,
+    Calculate
 };
 
-function tipFormCalc(total, splitByNumber, tipPercetage) {
-
-    let convertedPercentage = add(1, divide(tipPercetage, 100));
-
-    let subTotal =  multiply(total, convertedPercentage);
-
-
-
-    return splitByNumber !== 0 ? divide(subTotal, splitByNumber) : subTotal;
-
-
-}

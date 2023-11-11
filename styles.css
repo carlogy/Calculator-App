@@ -123,14 +123,15 @@
     z-index: 0;
 }
 
-.tip-form-grid {
+.calc-form-grid {
     /* display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: stretch; */
+    border-radius: 0 0 1.8rem 1.8rem;
 }
 
-.tip-labels {
+.calc-form-labels {
 
     font-size: 16px;
     color: #2b7f5c;
@@ -139,7 +140,7 @@
     text-align: center;
 }
 
-.tip-inputs {
+.calc-form-inputs {
     border: solid 1px #53644f;
     /* flex-grow: 2; */
     margin: 1rem;
@@ -152,7 +153,7 @@
 
 }
 
-.tip-calc-button {
+.calc-form-button {
     background-color: rgba(245,245,245,0.25);
     border: none;
     margin: 1rem 2rem;
@@ -164,17 +165,17 @@
 
 }
 
-.tip-calc-button:hover {
+.calc-form-button:hover {
     font-weight: bold;
     color: #ff901b;
 }
 
 
-.tip-inputs:hover {
+.calc-form-inputs:hover {
     border: solid 1px #FF321a
 }
 
-.dark-tip-inputs {
+.dark-calc-form-inputs {
     background-color: #333333;
 }
 
@@ -223,3 +224,5 @@
                  width: 21rem;
     }
 }
+
+
