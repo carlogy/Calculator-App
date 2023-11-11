@@ -35,7 +35,7 @@ function tipFormCalc(total, splitByNumber, tipPercetage) {
 function discountFormCalc(itemPrice, discountPercentage, taxPercentage) {
 
 
-    let discountSubTotal = multiply(itemPrice, (add(1,(divide(discountPercentage,100)))));
+    let discountSubTotal = divide(itemPrice, (add(1,(divide(discountPercentage,100)))));
 
     return multiply(discountSubTotal,(add(1,(divide(taxPercentage, 100)))));
 

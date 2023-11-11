@@ -650,6 +650,8 @@ function inputParser(currentScreenText) {
     let solution;
     const numbers = [];
 
+
+
     // Please excuse my dear aunt sally
 
         if(operations.length === 1 && !currentScreenText.includes("(")) {
