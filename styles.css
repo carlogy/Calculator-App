@@ -220,7 +220,7 @@
 
 @media all and (max-width: 400px) {
     body {margin: .2rem 0 .2rem 0;}
-    .calculator {height: 41.5rem;
+    .calculator {height: 41rem;
                  width: 21rem;
     }
 }
