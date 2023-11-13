@@ -637,7 +637,7 @@ function solveProblem(buttonText, currentScreenText) {
 
             calcInputs = String(inputParser(currentScreenText));
 
-           inputScreen.textContent = calcInputs;
+            inputScreen.textContent = calcInputs;
 
         } catch (error) {
             console.log(error);
@@ -649,8 +649,6 @@ function inputParser(currentScreenText) {
 
     let solution;
     const numbers = [];
-
-
 
     // Please excuse my dear aunt sally
 
@@ -699,7 +697,29 @@ function inputParser(currentScreenText) {
 
         solution = Calculate(numbers[0], operations[0], numbers[1]);
 
+    } else  {
+
+        const expression = currentScreenText.split(" ");
+
+        for (const element of expression) {
+
+            if (element !== '+' &&
+                 element !== '-' &&
+                 element !== 'x' &&
+                 element !== '÷') {
+
+                numbers.push(element);
+                 }
+        }
+
+
+
+        console.log(expression, numbers, operations);
+
+
     }
+
+
 
     operations.length = 0;
     numbers.length = 0;

@@ -20,14 +20,9 @@ function divide(num1, num2) {
 
 function tipFormCalc(total, splitByNumber, tipPercetage) {
 
-    let convertedPercentage = add(1, divide(tipPercetage, 100));
-
-    let subTotal =  multiply(total, convertedPercentage);
-
-
+    let subTotal =  multiply(total, add(1, divide(tipPercetage, 100)));
 
     return splitByNumber !== 0 ? divide(subTotal, splitByNumber) : subTotal;
-
 
 }
 
