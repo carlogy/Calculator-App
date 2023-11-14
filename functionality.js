@@ -699,23 +699,9 @@ function inputParser(currentScreenText) {
 
     } else  {
 
-        const expression = currentScreenText.split(" ");
+        const expression = currentScreenText.slice(" ");
 
-        for (const element of expression) {
-
-            if (element !== '+' &&
-                 element !== '-' &&
-                 element !== 'x' &&
-                 element !== '÷') {
-
-                numbers.push(element);
-                 }
-        }
-
-
-
-        console.log(expression, numbers, operations);
-
+        console.log(expression);
 
     }
 
