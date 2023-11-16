@@ -219,10 +219,15 @@
 }
 
 @media all and (max-width: 400px) {
-    body {margin: .2rem 0 .2rem 0;}
-    .calculator {height: 41rem;
+    body {margin: .2rem 0;}
+    .calculator {height: 40.5rem;
                  width: 21rem;
     }
 }
 
-
+@media all and (min-width: 401px)  {
+    body {margin: 5rem 0;}
+    .calculator {height: 42.5rem;
+                 width: 23rem;
+    }
+}
