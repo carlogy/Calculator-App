@@ -51,12 +51,13 @@
 
     flex: 0;
     margin: auto;
-    margin-right:  1.2rem;
+    margin-right:  .75rem;
     color: #2b7f5c;
 }
 
 .menu-icon {
     font-weight: bold;
+    transform: rotate(90deg);
 
 }
 
