@@ -23,12 +23,19 @@ let calcInputs = "";
 
 window.addEventListener("click", (event) => {
 
-if(event.target.parentElement.classList.contains("action-buttons-grid") && !event.target.parentElement.classList.contains("action-buttons-grid-form")) {
 
-    updateInput(String(event.target.textContent), inputScreen.textContent);
+ if (event.target.localName === "body" ||  event.target.localName === "html" || event.target.classList.contains("input-screen") || event.target.classList.contains("Calc-type") || event.target.parentElement.classList.contains("nav-bar") || event.target.classList.contains('calculator')) {
+
     menuDisableClickHandler(event);
 
-}  else if (event.target.parentElement.classList.contains("List-menu")) {
+} else if(event.target.parentElement.classList.contains("action-buttons-grid")
+&& !event.target.parentElement.classList.contains("action-buttons-grid-form")) {
+
+updateInput(String(event.target.textContent), inputScreen.textContent);
+menuDisableClickHandler(event);
+
+}
+else if (event.target.parentElement.classList.contains("List-menu")) {
 
     switch (event.target.textContent) {
         case "☾":
@@ -70,6 +77,7 @@ if(event.target.parentElement.classList.contains("action-buttons-grid") && !even
 
 
  if (event.target.parentElement.classList.contains("menu")) {
+
     switch (menuClicked) {
         case false:
             menuEnableClickHandler(event);
@@ -86,18 +94,6 @@ if(event.target.parentElement.classList.contains("action-buttons-grid") && !even
 // , true
 );
 
-
-
-// window.addEventListener("submit", (event) => {
-
-//     event.preventDefault();
-
-//     if (event.target.buttonText === "Calculate Tip") {
-
-//         submitTipForm(event);
-//     }
-
-// });
 
 function submitTipForm(event) {
 
@@ -131,15 +127,6 @@ function calcItemInputs(element) {
     console.log(calcComponents);
 }
 
-// for (const button of buttons) {
-
-//     button.addEventListener("click", (event) => {
-
-//         updateInput(String(button.textContent), inputScreen.textContent);
-//         menuDisableClickHandler(event);
-//     });
-// }
-
 function menuEnableClickHandler(event) {
 
    menuIcon.setAttribute("hidden", true);
@@ -149,28 +136,6 @@ function menuEnableClickHandler(event) {
         for (const item of menuItems) {
 
             item.removeAttribute("hidden");
-
-            // item.addEventListener("click", (event) => {
-
-            //     switch (event.target.textContent) {
-            //         case "☾":
-
-            //             menuDisableClickHandler(event);
-            //             displayThemeClickHandler(event);
-            //             break;
-            //         case "Tip Calculator":
-            //             tipCalculatorClickHandler(event);
-            //             menuDisableClickHandler(event);
-
-            //             break;
-            //         case "Discount Calculator":
-            //             discountCalculatorClickHandler(event);
-            //             menuDisableClickHandler(event);
-            //             break;
-            //         default:
-            //             break;
-            //     }});
-
     }
 
     menuClicked = true;
@@ -188,20 +153,23 @@ function displayThemeClickHandler(event) {
         document.body.classList.add("Dark-Theme");
         document.body.querySelector(".calculator").classList.add("calculator-dark");
 
-        for (const input of document.querySelector(".action-buttons-grid").children) {
-            input.classList.add("dark-calc-input");
-
-        }
 
         switch (calculatorType.textContent) {
             case "Tip Calculator":
                 for (const input of document.querySelector("#tipForm").children) {
                     input.classList.add("dark-calc-form-inputs");
+                    darkMode = true;
+                }
+                break;
+            case "Discount Calculator":
+                for (const input of document.querySelector('#discountForm').children) {
+                    input.classList.add("dark-calc-form-inputs");
+                    darkMode = true;
                 }
             case "Calculator":
                 for (const input of document.querySelector(".action-buttons-grid").children) {
                     input.classList.add("dark-calc-input");
-
+                darkMode = true;
                 }
                 break;
 
@@ -218,9 +186,30 @@ function displayThemeClickHandler(event) {
         document.body.classList.remove("Dark-Theme");
         document.body.querySelector(".calculator").classList.remove("calculator-dark");
 
-        for (const input of document.querySelector(".action-buttons-grid").children) {
-            input.classList.remove("dark-calc-input");
+
+        switch (calculatorType.textContent) {
+            case "Tip Calculator":
+                for (const input of document.querySelector("#tipForm").children) {
+                    input.classList.remove("dark-calc-form-inputs");
+                    darkMode = false;
+                }
+                break;
+            case "Discount Calculator":
+                for (const input of document.querySelector('#discountForm').children) {
+                    input.classList.remove("dark-calc-form-inputs");
+                    darkMode = false;
+                }
+            case "Calculator":
+                for (const input of document.querySelector(".action-buttons-grid").children) {
+                    input.classList.remove("dark-calc-input");
+                darkMode = false;
+                }
+                break;
+
+            default:
+                break;
         }
+
 
         darkMode = false;
         event.target.textContent = "☾";
@@ -229,7 +218,6 @@ function displayThemeClickHandler(event) {
 }
 
 function tipCalculatorClickHandler(event) {
-
 
     console.log("Tip Calculator button clicked");
 
@@ -265,6 +253,7 @@ function tipCalculatorClickHandler(event) {
         totalInput.setAttribute("type", "number");
         totalInput.classList.add("calc-form-inputs");
 
+
     const splitByLabel = document.createElement("label");
         splitByLabel.setAttribute("for", "splitByInput");
         splitByLabel.textContent = "People splitting bill: "
@@ -276,6 +265,7 @@ function tipCalculatorClickHandler(event) {
         splitNumber.setAttribute("type", "number");
         splitNumber.classList.add("calc-form-inputs")
 
+
     const tipLabel = document.createElement("label");
         tipLabel.textContent = "Desired Tip percentage: ";
         tipLabel.setAttribute("for","tip");
@@ -286,6 +276,7 @@ function tipCalculatorClickHandler(event) {
         tipInput.setAttribute("id", "tip");
         tipInput.setAttribute("type", "number");
         tipInput.classList.add("calc-form-inputs");
+
 
     const tipSubmitButton = document.createElement("button");
         tipSubmitButton.classList.add("calc-form-button");
@@ -306,6 +297,17 @@ function tipCalculatorClickHandler(event) {
     tipForm.appendChild(tipLabel);
     tipForm.appendChild(tipInput);
     tipForm.appendChild(tipSubmitButton);
+
+    if(darkMode) {
+        for (const input of document.querySelector('#tipForm').children) {
+
+           if(!input.classList.contains("calc-form-button")) {
+
+            input.classList.add("dark-calc-form-inputs");
+        }
+    }
+}
+
 
     inputScreen.textContent = "";
 
@@ -391,6 +393,17 @@ function discountCalculatorClickHandler(event) {
     discountForm.appendChild(taxInput);
     discountForm.appendChild(discountSubmitButton);
 
+
+    if(darkMode) {
+        for (const input of document.querySelector('#discountForm').children) {
+
+           if(!input.classList.contains("calc-form-button")) {
+
+            input.classList.add("dark-calc-form-inputs");
+        }
+    }
+}
+
     inputScreen.textContent = "";
 
     calculatorType.textContent = "Discount Calculator";
@@ -410,6 +423,10 @@ function calculatorClickHandler(event) {
 
     for (const item of calcComponents) {
         document.querySelector(".action-buttons-grid").appendChild(item);
+
+        if(!darkMode) {
+            item.classList.remove("dark-calc-input");
+        }
     }
 
     document.querySelector(".action-buttons-grid").classList.remove("action-buttons-grid-form");
@@ -463,7 +480,7 @@ function updateInput(buttonText, currentScreenText) {
                 backspaceInput(buttonText, currentScreenText);
                 break;
             case "()":
-                paranthesis(buttonText, currentScreenText);
+                parenthesis(buttonText, currentScreenText);
                 break;
             case "+":
                 operator(buttonText, currentScreenText);
@@ -541,7 +558,6 @@ function operator(buttonText , currentScreenText) {
         } catch (error) {
 
             console.log(error);
-
         }
         break;
 
@@ -550,7 +566,8 @@ function operator(buttonText , currentScreenText) {
     }
 }
 
-function paranthesis (buttonText, currentScreenText, buttonValue) {
+function parenthesis (buttonText, currentScreenText, buttonValue) {
+
 
     if (buttonText === "()") {
         try {
@@ -576,7 +593,7 @@ function paranthesis (buttonText, currentScreenText, buttonValue) {
 
             } else {
                 calcInputs += ")";
-                buttonValue += buttonValue;
+                // buttonValue += buttonValue;
             }
 
             console.log(calcInputs);
@@ -647,70 +664,197 @@ function solveProblem(buttonText, currentScreenText) {
 
 function inputParser(currentScreenText) {
 
-    let solution;
-    const numbers = [];
+    const stack = currentScreenText.split('');
 
-    // Please excuse my dear aunt sally
+    const orderOfOperations = [];
 
-        if(operations.length === 1 && !currentScreenText.includes("(")) {
+    console.log(stack);
 
-            const expression = currentScreenText.split(" ");
 
-            for (const element of expression) {
-                if (element !== '+' &&
-                        element !== '-' &&
-                        element !== 'x' &&
-                        element !== '÷' &&
-                        element !== '(' &&
-                        element !== ')')  {
 
-                    numbers.push(parseInt(element));
+        while (stack.length > 1) {
+
+            let leftOperand;
+            let rightOperand;
+            let operator;
+            let solution;
+
+            console.log(`The current length of the stack is: ${stack.length}, \n`);
+
+
+            if(stack.includes("(")) {
+
+                console.log(`Stack includes expressions with Parenthesis!`);
+
+                const innerOpenParenthsIndex = stack.lastIndexOf("(");
+                const innerCloseParenthsIndex = stack.indexOf(")");
+                const spliceIndexTotal =(innerCloseParenthsIndex + 1) - innerOpenParenthsIndex;
+
+                let expression = stack.slice(innerOpenParenthsIndex, spliceIndexTotal);
+
+                const placeholderIndex = innerOpenParenthsIndex;
+
+                console.log(`The indexCount is ${spliceIndexTotal} \n`);
+                console.log(`The first expression to solve is: ${expression} \n`);
+                console.log(`The current stack is: ${stack} \n The new length is: ${stack.length} \n`);
+                console.log(`The placeholder index in stack to insert solution is: ${innerOpenParenthsIndex} \n`);
+
+                while (expression.length > 1) {
+
+
+                    expression.map((char, index) => {
+
+                        switch (char) {
+                            case "x":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([multiply, index]);
+                                break;
+                            case "÷":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([divide, index]);
+                                break;
+                            case "+":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([add, index]);
+                                break;
+                            case "-":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([subtract, index]);
+                                break;
+                            default:
+                                break;
+                        }});
+
+                        orderOfOperations.sort((a,b,c,d) => {(multiply,  divide, add, subtract)});
+
+                        console.log(`The current order of operations is: ${orderOfOperations}`);
+
+
+                        console.log(`Time to start solving the expression! \n Current Expression is: ${expression}`);
+
+                        const isLastOperation = orderOfOperations.length === 1;
+
+                        const currentOperationIndex = orderOfOperations[0][1];
+
+
+                        console.log(`Is this the last operation? ${isLastOperation}, \n The Current Operation index is ${currentOperationIndex} \n`);
+
+
+                        leftOperand = parseFloat(expression.slice(isLastOperation ? 1 : currentOperationIndex > orderOfOperations[1][1] ? orderOfOperations[1][1] + 1 : 1, currentOperationIndex).join('').trim());
+
+                        operator = orderOfOperations[0][0];
+
+                        rightOperand = parseFloat(expression.slice(currentOperationIndex +1, isLastOperation ? expression.length : orderOfOperations[1][1]).join('').trim());
+
+                        console.log(`The left operand is: ${leftOperand} \n The operation is: ${operator} \n The rigth operand is: ${rightOperand}`);
+
+                        solution = Calculate(leftOperand, operator, rightOperand);
+
+                        console.log(`The current solution is ${solution} \n`);
+
+                        const endingOfRightOperand = isLastOperation ? expression.length : orderOfOperations[1][1];
+                        const startOfLeftOperand = isLastOperation ? 0 : currentOperationIndex > orderOfOperations[1][1] ? orderOfOperations[1][1] + 1 : 1
+                        const expressionIndexCount = endingOfRightOperand - startOfLeftOperand;
+
+                        console.log("The index count for splicing is: ", expressionIndexCount);
+
+                        expression.splice(startOfLeftOperand, expressionIndexCount, solution);
+
+                        console.log(`The spliced expression after solving first operation: ${expression} \n It's lenght is now ${expression.length} \n`);
+
+                        orderOfOperations.length = 0;
+
+                        console.log(orderOfOperations, " => should now be empty!");
 
                 }
-            }
 
-            solution =  Calculate(numbers[0], operations[0], numbers[1]);
-            }
-        else if (
-                    currentScreenText.includes("(") &&
-                    currentScreenText.includes(")") &&
-                    operations.length === 1
-                ) {
+                console.log(placeholderIndex, spliceIndexTotal)
+                console.log(stack);
 
-            let indexOpenParenths = currentScreenText.indexOf("(");
-            let indexCloseParenths = currentScreenText.indexOf(")") + 1;
+                console.log(stack.length);
 
-            const firstCalc = currentScreenText.substring(indexOpenParenths, indexCloseParenths).trim();
+                stack.splice(placeholderIndex, spliceIndexTotal, expression.join());
 
-            for (const element of firstCalc) {
-                if (element !== '+' &&
-                        element !== '-' &&
-                        element !== 'x' &&
-                        element !== '÷' &&
-                        element !== '(' &&
-                        element !== ')' &&
-                        element !== ' ' )  {
+                console.log(stack, "\n", stack.length);
 
-                    numbers.push(parseInt(element));
+            } else {
+                console.log( `The current length of the stack is: ${stack.length} \n`);
+
+                let expression = stack;
+
+
+                while(expression.length > 1) {
+
+                    expression.map((char, index) => {
+
+                        switch (char) {
+                            case "x":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([multiply, index]);
+                                break;
+                            case "÷":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([divide, index]);
+                                break;
+                            case "+":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([add, index]);
+                                break;
+                            case "-":
+                                console.log(`${char} , found  at ${index}, adding to operation stack`);
+                                orderOfOperations.push([subtract, index]);
+                                break;
+                            default:
+                                break;
+                        }});
+
+                        orderOfOperations.sort((a,b,c,d) => {(multiply,  divide, add, subtract)});
+
+                        console.log(`The current order of operations is: ${orderOfOperations}`);
+
+                        console.log(`Time to start solving the expression! \n Current Expression is: ${expression}`);
+
+                        const isLastOperation = orderOfOperations.length === 1;
+
+                        const currentOperationIndex = orderOfOperations[0][1];
+
+
+                        console.log(`Is this the last operation? ${isLastOperation}, \n The Current Operation index is ${currentOperationIndex} \n`);
+
+
+                        leftOperand = parseFloat(expression.slice(isLastOperation ? 0 : currentOperationIndex > orderOfOperations[1][1] ? orderOfOperations[1][1] + 1 : 0, currentOperationIndex).join('').trim());
+
+                        operator = orderOfOperations[0][0];
+
+                        rightOperand = parseFloat(expression.slice(currentOperationIndex +1, isLastOperation ? expression.length : orderOfOperations[1][1]).join('').trim());
+
+                        console.log(`The left operand is: ${leftOperand} \n The operation is: ${operator} \n The rigth operand is: ${rightOperand}`);
+
+                        solution = Calculate(leftOperand, operator, rightOperand);
+
+                        console.log(`The current solution is ${solution} \n`);
+
+                        const endingOfRightOperand = isLastOperation ? expression.length : orderOfOperations[1][1];
+                        const startOfLeftOperand = isLastOperation ? 0 : currentOperationIndex > orderOfOperations[1][1] ? orderOfOperations[1][1] + 1 : 0
+                        const expressionIndexCount = endingOfRightOperand - startOfLeftOperand;
+
+                        console.log("The index count for splicing is: ", expressionIndexCount);
+
+                        expression.splice(startOfLeftOperand, expressionIndexCount, solution);
+
+                        console.log(`The spliced expression after solving first operation: ${expression} \n It's lenght is now ${expression.length} \n`);
+
+                        orderOfOperations.length = 0;
+
+                        console.log(orderOfOperations, " => should now be empty!");
                 }
+
+                stack.splice(0, stack.length, expression.toString());
             }
 
-        solution = Calculate(numbers[0], operations[0], numbers[1]);
-
-    } else  {
-
-        const expression = currentScreenText.slice(" ");
-
-        console.log(expression);
-
-    }
-
-
-
-    operations.length = 0;
-    numbers.length = 0;
-
-    return solution;
+            console.log(parseFloat(stack), stack.length);
+            return parseFloat(stack.toString());
+        }
 }
 
 // function disableActionButtons() {
