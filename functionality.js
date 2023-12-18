@@ -729,7 +729,7 @@ function inputParser(currentScreenText) {
 
                 const innerOpenParenthsIndex = stack.lastIndexOf("(");
                 const innerCloseParenthsIndex = stack.indexOf(")");
-                const spliceIndexTotal =(innerCloseParenthsIndex + 1) - innerOpenParenthsIndex;
+                const spliceIndexTotal = (innerCloseParenthsIndex + 1) - innerOpenParenthsIndex;
 
                 let expression = stack.slice(innerOpenParenthsIndex, spliceIndexTotal);
 
@@ -766,7 +766,7 @@ function inputParser(currentScreenText) {
                                 break;
                         }});
 
-                        orderOfOperations.sort((a,b,c,d) => {(multiply,  divide, add, subtract)});
+                        orderOfOperations.sort((a,b,c,d) => {(multiply, divide, add, subtract)});
 
                         console.log(`The current order of operations is: ${orderOfOperations}`);
 
@@ -780,14 +780,13 @@ function inputParser(currentScreenText) {
 
                         console.log(`Is this the last operation? ${isLastOperation}, \n The Current Operation index is ${currentOperationIndex} \n`);
 
-
                         leftOperand = parseFloat(expression.slice(isLastOperation ? 1 : currentOperationIndex > orderOfOperations[1][1] ? orderOfOperations[1][1] + 1 : 1, currentOperationIndex).join('').trim());
 
                         operator = orderOfOperations[0][0];
 
                         rightOperand = parseFloat(expression.slice(currentOperationIndex +1, isLastOperation ? expression.length : orderOfOperations[1][1]).join('').trim());
 
-                        console.log(`The left operand is: ${leftOperand} \n The operation is: ${operator} \n The rigth operand is: ${rightOperand}`);
+                        console.log(`The left operand is: ${leftOperand} \n The operation is: ${operator} \n The right operand is: ${rightOperand}`);
 
                         solution = Calculate(leftOperand, operator, rightOperand);
 
@@ -801,7 +800,7 @@ function inputParser(currentScreenText) {
 
                         expression.splice(startOfLeftOperand, expressionIndexCount, solution);
 
-                        console.log(`The spliced expression after solving first operation: ${expression} \n It's lenght is now ${expression.length} \n`);
+                        console.log(`The spliced expression after solving first operation: ${expression} \n It's length is now ${expression.length} \n`);
 
                         orderOfOperations.length = 0;
 
