@@ -568,42 +568,83 @@ function operator(buttonText , currentScreenText) {
 
 function parenthesis (buttonText, currentScreenText, buttonValue) {
 
+    const currentText =  currentScreenText.trim().split('');
 
+    console.log(currentText);
     if (buttonText === "()") {
+
         try {
 
-            let leftParenthsCount = 0;
-            let rightparenthsCount = 0;
-            for (const char of currentScreenText) {
+            if (!currentText.includes("(")
+                && !currentText.includes(")")) {
 
-                char === "(" ? leftParenthsCount +=1 : leftParenthsCount + 0;
-                char  === ")" ? rightparenthsCount +=1 : rightparenthsCount + 0;
-            }
-
-            if (!currentScreenText.includes("(") && !currentScreenText.includes(")")) {
                 calcInputs += "("
-            } else if (currentScreenText.includes("(") && !currentScreenText.includes(")")) {
 
-                calcInputs += ") ";
-                // calcValues += buttonValue;
-            }
-            else if (leftParenthsCount === rightparenthsCount) {
-                calcInputs += "(";
-                // calcValues += buttonValue;
+            } else if (currentText[currentText.length -1] === "(" && currentText.lastIndexOf(")") === -1 ) {
 
-            } else {
-                calcInputs += ")";
-                // buttonValue += buttonValue;
+                calcInputs += "("
             }
 
-            console.log(calcInputs);
+            else if(!currentText.includes(")")
+                        && currentText[currentText.length -1] !== "x"
+                        || currentText[currentText.length -1] !== "÷"
+                        || currentText[currentText.length -1] !== "+"
+                        || currentText[currentText.length -1] !== "-"
+                        || currentText[currentText.length -1] !== " ")
+                        {
+
+                            calcInputs += ")"
+                        }
+            else if (currentText.indexOf(")") === currentText.lastIndexOf(")") && currentText.indexOf("(") !== currentText.lastIndexOf("(")) {
+
+                calcInputs += ")"
+            }
+
+
             inputScreen.textContent = calcInputs;
+
         } catch (error) {
 
             console.log(error);
-
         }
+
     }
+
+    // if (buttonText === "()") {
+    //     try {
+
+    //         let leftParenthsCount = 0;
+    //         let rightparenthsCount = 0;
+    //         for (const char of currentScreenText) {
+
+    //             char === "(" ? leftParenthsCount +=1 : leftParenthsCount + 0;
+    //             char  === ")" ? rightparenthsCount +=1 : rightparenthsCount + 0;
+    //         }
+
+    //         if (!currentScreenText.includes("(") && !currentScreenText.includes(")")) {
+    //             calcInputs += "("
+    //         } else if (currentScreenText.includes("(") && !currentScreenText.includes(")")) {
+
+    //             calcInputs += ") ";
+    //             // calcValues += buttonValue;
+    //         }
+    //         else if (leftParenthsCount === rightparenthsCount) {
+    //             calcInputs += "(";
+    //             // calcValues += buttonValue;
+
+    //         } else {
+    //             calcInputs += ")";
+    //             // buttonValue += buttonValue;
+    //         }
+
+    //         console.log(calcInputs);
+    //         inputScreen.textContent = calcInputs;
+    //     } catch (error) {
+
+    //         console.log(error);
+
+    //     }
+    // }
 }
 
 function backspaceInput(buttonText, currentScreenText) {
@@ -853,8 +894,9 @@ function inputParser(currentScreenText) {
             }
 
             console.log(parseFloat(stack), stack.length);
-            return parseFloat(stack.toString());
+
         }
+        return parseFloat(stack.toString());
 }
 
 // function disableActionButtons() {
