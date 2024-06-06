@@ -1,6 +1,6 @@
 # Calculator-App
 
-## This calculator app offers a dark theme and various functionality. Click on the menu icon at the top right to explore!
+## This calculator app offers a dark theme and various functionalities. Click on the menu icon at the top right to explore!
 
 ### Functionality
 * Calculator
