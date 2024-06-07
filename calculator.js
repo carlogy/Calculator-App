@@ -29,7 +29,7 @@ function discountFormCalc(itemPrice, discountPercentage, taxPercentage) {
 
 }
 
-function Calculate(num1, operation, num2) {
+function calculate(num1, operation, num2) {
 
     try{
 
@@ -48,6 +48,6 @@ export {
     divide,
     tipFormCalc,
     discountFormCalc,
-    Calculate
+    calculate
 };
 
