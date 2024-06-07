@@ -1,65 +1,67 @@
-<!DOCTYPE html>
+<!DOCTYPE html />
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Creator: Carlo G Yannuzzi This is a calculator application that built with JavaScript, HTML and CSS. This calculator will also calculate tips for restaurants, and discounts on items." >
-    <link rel="stylesheet" href="/src/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="calculator.ico">
-    <script type="module" src="Calculator.js" defer></script>
-    <script type="module" src="functionality.js" defer></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Creator: Carlo G Yannuzzi This is a calculator application that built with JavaScript, HTML and CSS.
+                    This calculator will also calculate tips for restaurants, and discounts on items."
+        />
+        <link rel="stylesheet" href="/styles.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="icon" type="image/x-icon" href="/calculator.ico" />
+        <script type="module" src="/calculator.js" defer></script>
+        <script type="module" src="/functionality.js" defer></script>
 
-    <title>Calculator</title>
-</head>
-<body>
-    <div class="calculator">
-        <div class="nav-bar header">
-            <div class="title">
-                <h2 class="Calc-type">Calculator</h2>
-            </div>
-            <div class="menu">
-                <div class="menu-icon">◦◦◦</div>
-                <div class="List-menu">
-
-                        <li class="List-item" hidden="true" >☾</li>
-                        <li class="List-item" hidden="true">Tip Calculator</li>
-                        <li class="List-item" hidden="true" >Discount Calculator</li>
-
+        <title>Calculator</title>
+    </head>
+    <body>
+        <div class="calculator">
+            <div class="nav-bar header">
+                <div class="title">
+                    <h2 class="Calc-type">Calculator</h2>
                 </div>
+                <div class="menu">
+                    <div class="menu-icon">◦◦◦</div>
+                    <div class="List-menu">
+                        <li class="List-item" hidden="true">☾</li>
+                        <li class="List-item" hidden="true">Tip Calculator</li>
+                        <li class="List-item" hidden="true">Discount Calculator</li>
+                    </div>
+                </div>
+            </div>
 
+            <h1 class="input-screen"></h1>
+
+            <div class="action-buttons-grid">
+                <button class="calc-input">C</button>
+                <button class="calc-input">⌫</button>
+                <button class="calc-input" value="()">()</button>
+                <button class="calc-input operation" value="+">+</button>
+                <button class="calc-input" value="7">7</button>
+                <button class="calc-input" value="8">8</button>
+                <button class="calc-input" value="9">9</button>
+                <button class="operation calc-input" value="-">-</button>
+                <button class="calc-input" value="4">4</button>
+                <button class="calc-input" value="5">5</button>
+                <button class="calc-input" value="6">6</button>
+                <button class="calc-input operation" value="*">x</button>
+                <button class="calc-input" value="1">1</button>
+                <button class="calc-input" value="2">2</button>
+                <button class="calc-input" value="3">3</button>
+                <button class="calc-input operation" value="/">÷</button>
+                <button class="bottom-left calc-input" value=".">.</button>
+                <button class="calc-input" value="0">0</button>
+                <button class="calc-input" value="%">%</button>
+                <button class="bottom-right calc-input" value="=">=</button>
             </div>
         </div>
-            <h1 class="input-screen"> </h1>
-
-        <div class="action-buttons-grid">
-            <button class="calc-input">C</button>
-            <button class="calc-input">⌫</button>
-            <button class="calc-input" value="()" >()</button>
-            <button class="calc-input operation" value="+">+</button>
-            <button class="calc-input" value="7">7</button>
-            <button class="calc-input" value="8">8</button>
-            <button class="calc-input" value="9">9</button>
-            <button class="operation calc-input" value="-">-</button>
-            <button class="calc-input" value="4">4</button>
-            <button class="calc-input" value="5">5</button>
-            <button class="calc-input" value="6">6</button>
-            <button class="calc-input operation" value="*">x</button>
-            <button class="calc-input" value="1">1</button>
-            <button class="calc-input" value="2">2</button>
-            <button class="calc-input" value="3">3</button>
-            <button class="calc-input operation" value="/">÷</button>
-            <button class="bottom-left calc-input" value=".">.</button>
-            <button class="calc-input" value="0">0</button>
-            <button class="calc-input" value="%">%</button>
-            <button class="bottom-right calc-input" value="=">=</button>
-
-        </div>
-
-    </div>
-
-
-</body>
+    </body>
 </html>
