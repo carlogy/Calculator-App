@@ -6,7 +6,7 @@ import {
   calculate,
   tipFormCalc,
   discountFormCalc,
-} from "/src/calculator.js";
+} from "/calculator.js";
 
 const menuIcon = document.querySelector(".menu-icon");
 
