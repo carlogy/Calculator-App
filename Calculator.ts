@@ -1,13 +1,22 @@
 class Calculator {
   menu: HTMLElement | null;
   menuIcon: HTMLElement | null;
-  menuItems: NodeListOf<Element> | null;
-  calculatorType: Element | null;
+  menuItems: NodeListOf<HTMLElement> | null;
+  calculatorType: HTMLElement | null;
   inputScreen: HTMLElement | null;
+  actionGrid: NodeListOf<HTMLButtonElement> | null;
+  body: HTMLElement | null;
   menuClicked: boolean;
   darkMode: boolean;
 
-  constructor(menu: string, menuIcon: string, menuItems: string, calculatorType: string, inputScreen: string) {
+
+
+
+  constructor(
+    menu: string,
+    menuIcon: string,
+    menuItems: string,
+    calculatorType: string, inputScreen: string) {
     this.menuClicked = false;
     this.darkMode = false;
     this.menu = document.querySelector(menu);
@@ -22,59 +31,38 @@ class Calculator {
 
     this.inputScreen = document.querySelector(inputScreen);
 
+    this.body = document.querySelector('.calculator');
+
+    this.actionGrid = document.querySelectorAll('.action-buttons-grid button');
   }
 
 
-   menuClickHandler(event : MouseEvent) {
 
-    if (!this.menuClicked) {
-      console.log(this.menuClicked);
 
-      this.menuIcon?.setAttribute("hidden", "true");
-      console.log(event.currentTarget);
-
-      this.menuItems?.forEach((item) => {
-        console.log(item);
-        item.toggleAttribute("hidden", false);
-    });
-    }
-
-    if (this.menuClicked){
-      this.menuClicked = false;
-
-      this.menuIcon?.toggleAttribute("hidden", false);
-
-      this.menuItems?.forEach((item)=> {
-        item.toggleAttribute("hidden", true);
-      });
-    }
-
-  }
-
-  add(num1: number, num2: number): number {
+  add = (num1: number, num2: number): number => {
     return num1 + num2;
   }
 
-  subtract(num1: number, num2: number): number {
+  subtract = (num1: number, num2: number): number => {
     return num1 - num2;
   }
 
-  multiply(num1: number, num2: number): number {
+  multiply = (num1: number, num2: number): number => {
     return num1 * num2;
   }
 
-  divide(num1: number, num2: number): number {
+  divide = (num1: number, num2: number): number => {
     if (num2 === 0) {
       throw new Error("Can't divide by zero");
     }
     return num1 / num2;
   }
 
-  tipFormCalc(
+  tipFormCalc = (
     total: number,
     splitByNumber: number,
     tipPercetage: number,
-  ): number {
+  ): number => {
     let subTotal = this.multiply(
       total,
       this.add(1, this.divide(tipPercetage, 100)),
@@ -85,11 +73,11 @@ class Calculator {
       : subTotal;
   }
 
-  discountFormCalc(
+  discountFormCalc = (
     itemPrice: number,
     discountPercentage: number,
     taxPercentage: number,
-  ): number {
+  ): number => {
     let discountSubTotal = this.divide(
       itemPrice,
       this.add(1, this.divide(discountPercentage, 100)),
@@ -101,11 +89,11 @@ class Calculator {
     );
   }
 
-  calculate(
+  calculate = (
     num1: number,
     operationName: string,
     num2: number,
-  ): number | undefined {
+  ): number | undefined => {
     try {
       switch (operationName) {
         case "add":
@@ -132,6 +120,127 @@ class Calculator {
       return undefined;
     }
   }
+
+
+  menuClickHandler = (event : MouseEvent) => {
+
+    const hideMenuItems = (propToSet: boolean) => {
+
+      if (this.menuItems) {
+        this.menuItems.forEach(item => {
+          item.hidden = propToSet;
+        });
+      }
+
+     };
+
+    const mouseEvent = event as MouseEvent;
+
+    if (event.target instanceof HTMLElement) {
+      const action = event.target.dataset.action;
+
+      if (!this.menuClicked) {
+
+        switch(action) {
+          case 'menu-toggle':
+            console.log("Toggle Clicked");
+            (<HTMLElement>this.menuIcon).hidden = true;
+            hideMenuItems(false);
+            this.menuClicked = true;
+            break;
+          case 'theme':
+            console.log('theme-clicked');
+            break;
+        }
+
+      }
+
+      if (this.menuClicked) {
+
+        switch(action) {
+          case 'theme':
+            (<HTMLElement>this.menuIcon).hidden = false;
+            hideMenuItems(true);
+            this.menuClicked = false;
+            this.displayThemeClickHandler(event);
+          break;
+          case 'tip-calc':
+            (<HTMLElement>this.menuIcon).hidden = false;
+            hideMenuItems(true);
+            this.menuClicked = false;
+            break;
+          case 'discount-calc':
+            (<HTMLElement>this.menuIcon).hidden = false;
+            hideMenuItems(true);
+            this.menuClicked = false;
+            break;
+        }
+      }
+
+    }
+
+  };
+
+
+  displayThemeClickHandler = (event: MouseEvent) => {
+
+    const bodyClassList = (<HTMLElement>this.body).classList;
+
+    if (event instanceof MouseEvent) {
+
+      if (!this.darkMode) {
+        console.log("Light Theme");
+
+        bodyClassList.add("Dark-Theme");
+
+        switch (this.calculatorType?.textContent) {
+          case "Tip Calculator":
+            console.log('tipForm needs to go dark');
+            this.darkMode = true;
+            break;
+          case "Discount Calculator":
+            console.log('discForm needs to go dark');
+            this.darkMode = true;
+            break;
+          case "Calculator":
+            if (this.actionGrid) {
+              this.actionGrid.forEach(button => button.classList.add('dark-calc-input'));
+            }
+            (<NodeListOf<HTMLElement>>this.menuItems)[0].textContent = '☀︎';
+            this.darkMode = true;
+            break;
+          default:
+            break;
+        }
+      } else if (this.darkMode) {
+        console.log("Dark Theme");
+        bodyClassList.remove('Dark-Theme');
+        switch (this.calculatorType?.textContent) {
+          case "Tip Calculator":
+            console.log('tipForm needs to go light');
+            this.darkMode = false;
+            break;
+          case "Discount Calculator":
+            console.log('discForm needs to go light');
+            this.darkMode = false;
+            break;
+          case "Calculator":
+            if (this.actionGrid) {
+              this.actionGrid.forEach(button => button.classList.remove('dark-calc-input'));
+            }
+            (<NodeListOf<HTMLElement>>this.menuItems)[0].textContent = '☾';
+            this.darkMode = false;
+            break;
+          default:
+            break;
+        }
+      }
+
+
+    }
+  }
+
+
 }
 
 export { Calculator };
