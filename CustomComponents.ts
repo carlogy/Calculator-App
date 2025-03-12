@@ -11,6 +11,34 @@ export interface FormConfig {
     button: {class: string, type: string, textContent: string, id?: string}
   }
 
+  export const buildConfig = ( title: string,
+                        formId: string,
+                        formMethod: string,
+                        label: {forAttribute: string, labelClass: string, textContent: string}[],
+                        input: {id: string, name: string, type: string, class: string}[],
+                        buttonClass: string,
+                        buttonType: string,
+                        buttonTextContent: string,
+                        buttonId?: string
+                      ): FormConfig => {
+
+    return {
+    formTitle: title,
+    form: {
+      id: formId,
+      method: formMethod,
+    },
+    label: label,
+    input: input,
+    button: {
+      class: buttonClass,
+      type: buttonType,
+      textContent: buttonTextContent,
+      id: buttonId
+    }
+    }
+  };
+
 // export class CustomMenu extends Calculator  {
 
 //     private shadow: ShadowRoot;
