@@ -11,7 +11,8 @@ export interface FormConfig {
     button: {class: string, type: string, textContent: string, id?: string}
   }
 
-  export const buildConfig = ( title: string,
+  export const buildConfig = (
+                        title: string,
                         formId: string,
                         formMethod: string,
                         label: {forAttribute: string, labelClass: string, textContent: string}[],
