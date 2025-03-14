@@ -40,6 +40,10 @@ export interface FormConfig {
     }
   };
 
+
+
+
+
 // export class CustomMenu extends Calculator  {
 
 //     private shadow: ShadowRoot;
