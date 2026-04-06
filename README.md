@@ -1,16 +1,34 @@
 # Calculator-App
 
-## This calculator app offers a dark theme and various functionalities. Click on the menu icon at the top right to explore!
+A TypeScript calculator application built with Vite and deployed to GitHub Pages.
 
-### Functionality
-* Calculator
-  * Basic mathematical operations add, subtract, divide and multiply
-* Tip Calculator
-  * Calculates the Tip based on the total, number of people splitting the bill and the desired tip.
-* Discount Calculator
-  * Calculates a discount based on the price, sales tax, and discount.
-* Display Theme
-  * ☾ - Dark Theme
-  * ☀︎ - Light Theme
+## Features
+- Basic Calculator with PEMDAS order of operations
+- Tip Calculator with split support
+- Discount Calculator with tax
+- Dark/Light theme (system preference + manual toggle)
+- Keyboard support
 
-### Enjoy!
+## Tech Stack
+- TypeScript
+- Vite
+- Vitest
+
+## Development
+```bash
+pnpm install
+pnpm dev
+```
+
+## Testing
+```bash
+pnpm test
+```
+
+## Build
+```bash
+pnpm build
+```
+
+## Deployment
+Deployed to: https://carlogy.github.io/Calculator-App/
